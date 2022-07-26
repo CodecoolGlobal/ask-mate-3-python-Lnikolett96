@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ASK MATE</title>
 </head>
 <body>
+
+<table style="border-spacing: 20px;">
+    <tr>
+        {% for key in questions[0]  %}
+        <th>{{ key }}</th>
+        {% endfor %}
+
+    </tr>
+    <tr>
+        {% for element in questions  %}
+            <tr>
+
+
+        {% for key in element.keys()  %}
+
+
+
+
+
+        <td align="center">
+            {{ element[key] }}
+        </td>
+
+        {% endfor %}
+            </tr>
+        {% endfor %}
+    </tr>
+
+</table>
 
 </body>
 </html>

@@ -1,11 +1,22 @@
-from flask import Flask
+from flask import Flask, render_template
+import csv
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    questions = []
+    with open("./sample_data/question.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            print(row)
+            questions.append(row)
+
+
+    return render_template('main_page.html', questions = questions)
+
+
 
 
 if __name__ == "__main__":
