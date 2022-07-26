@@ -37,7 +37,7 @@
         <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
         <br> <br>
     {% else %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ message }}"></textarea>
+        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ row[5] }}"></textarea>
         <br> <br>
     {% endif %}
     <h3>Upload photo</h3>
