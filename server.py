@@ -12,9 +12,16 @@ def hello():
         for row in spamreader:
             print(row)
             questions.append(row)
-
-
     return render_template('main_page.html', questions = questions)
+
+@app.route('/add-question', methods=['GET', 'POST'])
+def add_question():
+    add = True
+    title = 'Add Question'
+    if request.method == 'POST':
+        return redirect(url_for('main_page.html'))
+    return render_template('add.html', add=add, title=title)
+
 
 
 
