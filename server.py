@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/list")
 def hello():
-    ranking = 
+    ranking = True
     questions = []
     with open("./sample_data/question.csv", "r") as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=",")
@@ -16,12 +16,17 @@ def hello():
     ordering_list = []
     ordered_by = request.args["ordered_by"]
     order_direction = request.args["order_direction"]
+    if order_direction == "asc":
+        ranking = False
+    else:
+        ranking = True
+
     for i in questions:
         if i[ordered_by].isnumeric():
             ordering_list.append(int(i[ordered_by]))
         else:
             ordering_list.append(i[ordered_by])
-    ordered_lst = sorted(ordering_list)
+    ordered_lst = sorted(ordering_list, reverse=ranking)
 
     questions_again = []
     for i in ordered_lst:
