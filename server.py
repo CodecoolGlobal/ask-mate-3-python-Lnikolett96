@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 import csv
 
 app = Flask(__name__)
@@ -12,7 +12,8 @@ def hello():
         for row in spamreader:
             print(row)
             questions.append(row)
-    return render_template('main_page.html', questions = questions)
+    return render_template('main_page.html', questions=questions)
+
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
@@ -21,9 +22,6 @@ def add_question():
     if request.method == 'POST':
         return redirect(url_for('main_page.html'))
     return render_template('add.html', add=add, title=title)
-
-
-
 
 
 if __name__ == "__main__":
