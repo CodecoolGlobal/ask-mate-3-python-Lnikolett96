@@ -4,15 +4,35 @@ import csv
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/list")
 def hello():
+    ranking = 
     questions = []
     with open("./sample_data/question.csv", "r") as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=",")
         for row in spamreader:
-            print(row)
             questions.append(row)
-    return render_template('main_page.html', questions=questions)
+
+    ordering_list = []
+    ordered_by = request.args["ordered_by"]
+    order_direction = request.args["order_direction"]
+    for i in questions:
+        if i[ordered_by].isnumeric():
+            ordering_list.append(int(i[ordered_by]))
+        else:
+            ordering_list.append(i[ordered_by])
+    ordered_lst = sorted(ordering_list)
+
+    questions_again = []
+    for i in ordered_lst:
+        for k in questions:
+            if str(i) == k[ordered_by]:
+                questions_again.append(k)
+
+    print(questions_again)
+
+    return render_template('main_page.html', questions_again=questions_again)
+
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
