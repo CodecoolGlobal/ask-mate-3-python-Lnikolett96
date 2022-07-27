@@ -19,17 +19,19 @@
 
 
         {% for key in element.keys()  %}
-
-
-
-
-
-        <td align="center">
-            {% if element[key] == '' %}
+         <td align="center">
+            {% if key == 'id' %}
+                <a href='/question/{{ element["id"] }}'>{{ element[key] }}</a>
+            {% else %}
+                {% if element[key] == '' %}
                 <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
             {% else %}
                 {{ element[key] }}
             {% endif %}
+
+            {% endif %}
+
+
 
         </td>
 

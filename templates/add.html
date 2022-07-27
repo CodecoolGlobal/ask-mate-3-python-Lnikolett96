@@ -2,52 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block title %}
         {% if add %}
-        <title> Add Question </title>
+        <title> {{ title_name }} </title>
         {% else %}
-        <title> Update Question</title>
+        <title> {{ title_name }}</title>
         {% endif %}
-    {% endblock %}
 </head>
 <body>
-{% block title2 %}
     {% if add %}
-        <h1> Add Question </h1>
-    {% else %}
-        <h1> Update Question</h1>
+        <h1> {{ title_name }} </h1>
+    {% else update %}
+        <h1> {{ title_name }}</h1>
     {% endif %}
-{% endblock %}
 
-<form action="/sample_data/question.csv" method="post">
-    <input type="hidden" name="id" value="{{ id }}">
+
+<form action="/add-question" enctype="multipart/form-data" method="post">
+    <input type="hidden" name="id" value="{{ id_num }}">
     <input type="hidden" name="submission_time" value="{{ time }}">
     <input type="hidden" name="view_number" value="{{ view_number }}">
     <input type="hidden" name="vote_number" value="{{ vote_number }}">
     <h3>Title</h3>
     {% if add %}
         <input type="text" name="title" required>
-        <br> <br>
     {% else %}
         <input type="text" name="title" required value="{{ title }}">
-        <br> <br>
     {% endif %}
     <h3> What is your Question?</h3>
     {% if add %}
         <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
-        <br> <br>
     {% else %}
         <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ row[5] }}"></textarea>
-        <br> <br>
     {% endif %}
     <h3>Upload photo</h3>
     <input type="file" name="image" accept="image/*">
-    <br> <br>
     {% if add %}
         <button type="submit">Send Question</button>
     {% else %}
         <button type="submit">Update Question</button>
     {% endif %}
 </form>
+<img src={{ url_for('static', filename=image) }}>
 </body>
 </html>
