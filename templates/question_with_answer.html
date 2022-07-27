@@ -24,7 +24,7 @@
                 <a href='/question/{{ element["id"] }}'>{{ element[key] }}</a>
             {% else %}
                 {% if element[key] == '' %}
-                <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
+                <a href='/answer/{{ element["id"] }}/delete'><button >delete</button></a>
             {% else %}
                 {{ element[key] }}
             {% endif %}

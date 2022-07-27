@@ -94,15 +94,16 @@ def delete_question(question_id):
 
     return redirect('/')
 
-@app.route('/question/<answer_id>/delete',methods = ['GET','POST'])
+@app.route('/answer/<answer_id>/delete',methods = ['GET','POST'])
 def delete_answer(answer_id):
-
+    print("hahoooooooooo")
     answers = []
     with open("./sample_data/answer.csv", "r") as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=",")
         for row in spamreader:
             answers.append(row)
     for index in range(len(answers)):
+
         if answers[index]['id'] == str(answer_id):
             del answers[index]
             print(answers)
@@ -111,7 +112,7 @@ def delete_answer(answer_id):
 
 
     with open("./sample_data/answer.csv",'w', newline='') as file:
-        fieldnames = ["id","submission_time","view_number","vote_number","title", "message","image","delete"]
+        fieldnames = ["id","submission_time","question_id","message","image","delete"]
         writer = csv.DictWriter(file,fieldnames=fieldnames)
         writer.writeheader()
         for dict in answers:
