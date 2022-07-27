@@ -25,16 +25,21 @@
 
 
         <td align="center">
-            {{ element[key] }}
+            {% if element[key] == '' %}
+                <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
+            {% else %}
+                {{ element[key] }}
+            {% endif %}
+
         </td>
 
         {% endfor %}
             </tr>
         {% endfor %}
+
     </tr>
 
 </table>
-<button>Delete Question</button>
 <button>Delete Answer</button>
 <button>Add Image</button>
 <button>Edit Question</button>
