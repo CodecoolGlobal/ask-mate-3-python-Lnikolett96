@@ -25,6 +25,7 @@
             {% else %}
                 {% if element[key] == '' %}
                 <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
+                <a href='/update-question/{{ element["id"] }}'><button >update</button></a>
             {% else %}
                 {{ element[key] }}
             {% endif %}
@@ -43,8 +44,7 @@
 
 </table>
 <button>Delete Answer</button>
-<button>Add Image</button>
-<button>Edit Question</button>
+<button><a href="/add-question">Add Question</a> </button>
 
 </body>
 </html>

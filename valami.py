@@ -65,7 +65,7 @@ def save_image(file_name_in_form):
     return img_source
 
 
-def add_q_a_form(csv_filename, id_num, view_number, vote_number, mode):
+def add_q_a_form(csv_filename, id_num, view_number=0, vote_number=0, mode='add'):
     img_source = save_image('image')
     if mode == 'add':
         new_id = make_new_id(csv_filename)
@@ -74,11 +74,10 @@ def add_q_a_form(csv_filename, id_num, view_number, vote_number, mode):
     new_data = [new_id, request.form['submission_time'], view_number,
                 vote_number, request.form['title'], request.form['message'],
                 img_source]
-    if mode == 'add':
+    if mode == 'update':
         write_in_csv(csv_filename, new_data)
     else:
         update_csv(csv_filename, new_id, new_data)
-    return
 
 
 def load_info_by_csv(csv_filename):
@@ -103,8 +102,9 @@ def add_question():
     update = False
     title = 'Add Question'
     time = current_time()
+    id_num = make_new_id("./sample_data/question.csv")
     if request.method == 'POST':
-        add_q_a_form("./sample_data/question.csv", 0, 0)
+        add_q_a_form("./sample_data/question.csv", id_num, 0, 0, 'add')
         return redirect(url_for('alap'))
     return render_template('add.html', add=add, title_name=title, time=time)
 
