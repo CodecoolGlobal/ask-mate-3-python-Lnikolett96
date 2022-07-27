@@ -8,29 +8,45 @@
 
 <table style="border-spacing: 20px;">
     <tr>
+    {% if questions_again == [] %}
+
+        {% for key in questions[0]  %}
+        <th>{{ key }}</th>
+        {% endfor %}
+    {% else %}
         {% for key in questions_again[0]  %}
         <th>{{ key }}</th>
         {% endfor %}
+    {% endif %}
+
 
     </tr>
     <tr>
-        {% for element in questions_again  %}
+    {% if questions_again == [] %}
+        {% for element in questions  %}
             <tr>
-
 
         {% for key in element.keys()  %}
 
-
-
-
-
-        <td align="center">
-            {{ element[key] }}
-        </td>
+        <td align="center">{{ element[key] }}</td>
 
         {% endfor %}
             </tr>
         {% endfor %}
+    {% else %}
+        {% for element in questions_again  %}
+            <tr>
+
+        {% for key in element.keys()  %}
+
+        <td align="center">{{ element[key] }}</td>
+
+        {% endfor %}
+            </tr>
+        {% endfor %}
+
+    {% endif %}
+
     </tr>
 
 </table>

@@ -36,7 +36,7 @@ def hello():
 
     print(questions_again)
 
-    return render_template('main_page.html', questions_again=questions_again)
+    return render_template('main_page.html', questions_again=questions_again, questions = questions)
 
 
 
