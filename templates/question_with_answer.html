@@ -2,19 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }} Answers:</title>
+    <title>ASK MATE</title>
 </head>
 <body>
-    <h1>{{ title }}</h1>
-    <table>
-        <tr>
-            <td> {{ question }}</td>
-            {% for answers in file %}
-                <td> {{ answers }}</td>
-        </tr>
-            {% endfor %}
-    </table>
 
+<table style="border-spacing: 20px;">
+    <tr>
+        {% for key in questions_again[0]  %}
+        <th>{{ key }}</th>
+        {% endfor %}
+
+    </tr>
+    <tr>
+        {% for element in questions_again  %}
+            <tr>
+
+
+        {% for key in element.keys()  %}
+         <td align="center">
+            {% if key == 'id' %}
+                <a href='/question/{{ element["id"] }}'>{{ element[key] }}</a>
+            {% else %}
+                {% if element[key] == '' %}
+                <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
+            {% else %}
+                {{ element[key] }}
+            {% endif %}
+
+            {% endif %}
+
+
+
+        </td>
+
+        {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </tr>
+
+</table>
 
 </body>
 </html>

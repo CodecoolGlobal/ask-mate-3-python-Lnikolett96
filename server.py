@@ -38,7 +38,6 @@ def hello():
     return render_template('main_page.html', questions_again=questions_again, questions = questions)
 
 
-
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
     add = True
@@ -54,8 +53,19 @@ def delete_page():
 
 @app.route('/question/<question_id>')
 def display_question_and_answer(question_id):
+    questions = []
+    with open("./sample_data/answer.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            questions.append(row)
+    answers = []
+    print(answers)
+    print(questions)
+    for dicts in questions:
+        if dicts["question_id"] == question_id:
+            answers.append(dicts)
 
-    return render_template('question_with_answer.html',title=question_id, question = None, answer = None)
+    return render_template('question_with_answer.html',questions_again = answers)
 
 
 @app.route('/question/<question_id>/delete',methods = ['GET','POST'])
