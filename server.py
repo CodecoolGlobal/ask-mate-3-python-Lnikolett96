@@ -51,6 +51,13 @@ def add_question():
 def delete_page():
     return render_template('delete_page.html')
 
+
+@app.route('/question/<question_id>')
+def display_question_and_answer(question_id):
+
+    return render_template('question_with_answer.html',title=question_id, question = None, answer = None)
+
+
 @app.route('/question/<question_id>/delete',methods = ['GET','POST'])
 def delete_question(question_id):
 
