@@ -23,7 +23,7 @@
             {% if key == 'id' %}
                 <a href='/question/{{ element["id"] }}'>{{ element[key] }}</a>
             {% else %}
-                {% if element[key] == '' %}
+                {% if element[key] == None or element[key] == '' %}
                 <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
                 <a href='/update-question/{{ element["id"] }}'><button >update</button></a>
             {% else %}
