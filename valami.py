@@ -1,9 +1,6 @@
 import csv
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
-from werkzeug.utils import secure_filename
-import urllib.request
-import os
 
 ALLOWED_EXTENSIONS = {'png', 'jpg'}
 UPLOAD_FOLDER = "./static/images/"
@@ -115,8 +112,6 @@ def update_question(id_num):
     time = current_time()
     data = load_info_by_csv("./sample_data/question.csv")
     if request.method == 'POST':
-
-
         return redirect(url_for('alap'))
     return render_template('add.html', add=add, update=update, title_name=title_name, time=time,
                            idnum=data[0], submission_time=time, view_number=data[2],
