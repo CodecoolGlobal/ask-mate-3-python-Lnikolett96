@@ -48,10 +48,30 @@ def add_question():
         return redirect(url_for('main_page.html'))
     return render_template('add.html', add=add, title=title)
 
+@app.route('/delete')
+def delete_page():
+    return render_template('delete_page.html')
+
+@app.route('/question/<question_id>/delete',methods = ['GET','POST'])
+def delete_question(question_id):
+
+    questions = []
+    with open("./sample_data/question.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            questions.append(row)
+    for i in questions:
+        if i['id'] == str(question_id):
+
+
+            return redirect('/')
+
+
+
 
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=5000,
+        port=8000,
         debug=True
     )
