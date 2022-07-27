@@ -3,6 +3,15 @@ import csv
 
 app = Flask(__name__)
 
+@app.route("/")
+def main():
+    questions = []
+    with open("./sample_data/question.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            questions.append(row)
+    return render_template("main_page.html", questions_again=questions)
+
 
 @app.route("/list")
 def hello():
