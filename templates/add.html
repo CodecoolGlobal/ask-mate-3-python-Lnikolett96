@@ -31,7 +31,7 @@
     {% if add %}
         <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
     {% else %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ row[5] }}"></textarea>
+        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ data[5] }}"></textarea>
     {% endif %}
     <h3>Upload photo</h3>
     <input type="file" name="image" accept="image/*">

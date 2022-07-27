@@ -32,9 +32,8 @@ def write_in_csv(filename, new_data):
 
 def update_csv(filename, id_num, new_data):
     data = get_data_file(filename)
-    new_data[0] = id
+    new_data[0] = id_num
     data[int(id_num)] = new_data
-    data.append(new_data)
     with open(filename, "w", newline='') as f:
         file = csv.writer(f, delimiter=",")
         file.writerows(data)
@@ -66,13 +65,19 @@ def save_image(file_name_in_form):
     return img_source
 
 
-def add_q_a_form(csv_filename, view_number, vote_number):
+def add_q_a_form(csv_filename, id_num, view_number, vote_number, mode):
     img_source = save_image('image')
-    new_id = make_new_id(csv_filename)
+    if mode == 'add':
+        new_id = make_new_id(csv_filename)
+    else:
+        new_id = id_num
     new_data = [new_id, request.form['submission_time'], view_number,
                 vote_number, request.form['title'], request.form['message'],
                 img_source]
-    write_in_csv(csv_filename, new_data)
+    if mode == 'add':
+        write_in_csv(csv_filename, new_data)
+    else:
+        update_csv(csv_filename, new_id, new_data)
     return
 
 
@@ -111,11 +116,14 @@ def update_question(id_num):
     title_name = 'Update Question'
     time = current_time()
     data = load_info_by_csv("./sample_data/question.csv")
+    view_number = data[2]
+    vote_number = data[3]
     if request.method == 'POST':
+        add_q_a_form("./sample_data/question.csv", id_num, view_number, vote_number, mode='update')
         return redirect(url_for('alap'))
     return render_template('add.html', add=add, update=update, title_name=title_name, time=time,
-                           idnum=data[0], submission_time=time, view_number=data[2],
-                           vote_number=data[3], title=data[4], message=data[5])
+                           id_num=data[0], submission_time=time, view_number=view_number,
+                           vote_number=vote_number, title=data[4], message=data[5])
 
 
 if __name__ == "__main__":
