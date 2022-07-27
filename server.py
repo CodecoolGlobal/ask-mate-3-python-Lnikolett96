@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 import csv
+from valami import write_in_csv
 
 app = Flask(__name__)
 
@@ -34,8 +35,6 @@ def hello():
             if str(i) == k[ordered_by]:
                 questions_again.append(k)
 
-    print(questions_again)
-
     return render_template('main_page.html', questions_again=questions_again, questions = questions)
 
 
@@ -60,11 +59,23 @@ def delete_question(question_id):
         spamreader = csv.DictReader(csvfile, delimiter=",")
         for row in spamreader:
             questions.append(row)
-    for i in questions:
-        if i['id'] == str(question_id):
+    for index in range(len(questions)):
+        if questions[index]['id'] == str(question_id):
+            del questions[index]
+            print(questions)
+            break
 
 
-            return redirect('/')
+
+    with open("./sample_data/question.csv",'w', newline='') as file:
+        fieldnames = ["id","submission_time","view_number","vote_number","title", "message","image","delete"]
+        writer = csv.DictWriter(file,fieldnames=fieldnames)
+        writer.writeheader()
+        for dict in questions:
+            writer.writerow(dict)
+
+
+    return redirect('/')
 
 
 
