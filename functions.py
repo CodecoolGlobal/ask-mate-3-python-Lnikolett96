@@ -32,8 +32,12 @@ def write_in_csv(filename, new_data):
 
 def update_csv(filename, id_num, new_data):
     data = get_data_file(filename)
-    new_data[0] = id_num
-    data[int(id_num)] = new_data
+    index = 0
+    for num, row in enumerate(data):
+        if row[0] == id_num:
+            data.remove(data[num])
+            index = num
+    data.insert(index, new_data)
     with open(filename, "w", newline='') as f:
         file = csv.writer(f, delimiter=",")
         file.writerows(data)
@@ -42,11 +46,10 @@ def update_csv(filename, id_num, new_data):
 def make_new_id(filename):
     csv_reader = get_data_file(filename)
     id_num = 0
-    if not csv_reader:
+    if len(csv_reader) == 0:
         id_num = 1
-    else:
-        for row in csv_reader:
-            id_num += 1
+    for row in csv_reader:
+        id_num += 1
     return id_num
 
 
@@ -65,30 +68,30 @@ def save_image(file_name_in_form):
     return img_source
 
 
-def add_q_a_form(csv_filename, id_num, view_number=0, vote_number=0, mode='add'):
+def add_q_a_form(csv_filename, id_num, mode, view_number=0, vote_number=0):
     img_source = save_image('image')
+    new_id = ''
     if mode == 'add':
         new_id = make_new_id(csv_filename)
-    else:
+    elif mode == 'update':
         new_id = id_num
     new_data = [new_id, request.form['submission_time'], view_number,
                 vote_number, request.form['title'], request.form['message'],
                 img_source]
     if mode == 'add':
         write_in_csv(csv_filename, new_data)
-    else:
-        update_csv(csv_filename, new_id, new_data)
+    elif 'update':
+        update_csv(csv_filename, id_num, new_data)
 
 
-def load_info_by_csv(csv_filename):
+def load_info_by_csv(csv_filename, id_num):
     data = get_data_file(csv_filename)
-    time = data[1]
-    view_number = data[2]
-    vote_number = data[3]
-    id_num = data[0]
-    title = data[4]
-    message = data[5]
-    return [id_num, time, view_number, vote_number, title, message]
+    updated_user = []
+    for row in data:
+        if row[0] == id_num:
+            for element in row:
+                updated_user.append(element)
+    return updated_user
 
 
 
