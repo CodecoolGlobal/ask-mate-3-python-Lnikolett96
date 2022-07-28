@@ -162,6 +162,28 @@ def voteup(question_id):
 
     return redirect('/')
 
+@app.route("/question/<question_id>/vote-down", methods = ['POST','GET'])
+def votedown(question_id):
+    questions = []
+    with open("./sample_data/question.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            questions.append(row)
+
+    for dicts in questions:
+        if dicts['id'] == question_id:
+            dicts['vote_number'] = int(dicts.get('vote_number',0)) - 1
+
+
+    with open("./sample_data/question.csv",'w', newline='') as file:
+        fieldnames = ["id","submission_time","view_number","vote_number","title", "message","image","functions"]
+        writer = csv.DictWriter(file,fieldnames=fieldnames)
+        writer.writeheader()
+        for dict in questions:
+            writer.writerow(dict)
+
+    return redirect('/')
+
 
 
 
