@@ -22,6 +22,8 @@
          <td align="center">
             {% if key == 'id' %}
                 <a href='/question/{{ element["id"] }}'>{{ element[key] }}</a>
+            {% elif key == 'image' %}
+                <img src="{{ element[key] }}" alt="image" width="100">
             {% else %}
                 {% if element[key] == None or element[key] == '' %}
                 <a href='/question/{{ element["id"] }}/delete'><button >delete</button></a>
