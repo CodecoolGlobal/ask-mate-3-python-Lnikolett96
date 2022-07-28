@@ -55,15 +55,15 @@ def update_question(id_num):
     update = True
     title_name = 'Update Question'
     time = functions.current_time()
-    data = functions.load_info_by_csv("./sample_data/question.csv")
-    view_number = data[2]
-    vote_number = data[3]
+    updated_user = functions.load_info_by_csv("./sample_data/question.csv", id_num)
+    view_number = updated_user[2]
+    vote_number = updated_user[3]
     if request.method == 'POST':
-        functions.add_q_a_form("./sample_data/question.csv", id_num, view_number, vote_number, mode='update')
+        functions.add_q_a_form("./sample_data/question.csv", id_num, 'update', view_number, vote_number)
         return redirect('/')
     return render_template('add.html', add=add, update=update, title_name=title_name, time=time,
-                           id_num=data[0], submission_time=time, view_number=view_number,
-                           vote_number=vote_number, title=data[4], message=data[5])
+                           id_num=updated_user[0], submission_time=time, view_number=view_number,
+                           vote_number=vote_number, title=updated_user[4], message=updated_user[5])
 
 @app.route('/delete')
 def delete_page():
