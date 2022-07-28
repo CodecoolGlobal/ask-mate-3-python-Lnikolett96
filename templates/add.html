@@ -15,8 +15,14 @@
         <h1> {{ title_name }}</h1>
     {% endif %}
 
+    {% if add %}
+        <form action="/add-question" enctype="multipart/form-data" method="post">
+    {% else %}
+        <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
 
-<form action="/add-question" enctype="multipart/form-data" method="post">
+    {% endif %}
+
+
     <input type="hidden" name="id" value="{{ id_num }}">
     <input type="hidden" name="submission_time" value="{{ time }}">
     <input type="hidden" name="view_number" value="{{ view_number }}">
@@ -31,7 +37,7 @@
     {% if add %}
         <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
     {% else %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ data[5] }}"></textarea>
+        <textarea itemtype="text" name="message" required cols="20" rows="10" >{{ message }}</textarea>
     {% endif %}
     <h3>Upload photo</h3>
     <input type="file" name="image" accept="imagitge/*">
