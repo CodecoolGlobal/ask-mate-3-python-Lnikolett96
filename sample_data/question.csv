@@ -1,4 +1,4 @@
-id,submission_time,view_number,vote_number,title,message,image,delete
-2,16:44:02,0,0,fsdfsdf,i hope the id will not the same,./static/images/plays.png,
-2,16:44:29,0,0,dov,what tuf aare we doin,./static/images/playstation-iphone-wallpaper.jpg
-3,16:44:51,0,0,dsddfs,fvdfvvfdvd,./static/images/kl.jpg
+id,submission_time,view_number,vote_number,title,message,image,functions
+2,16:44:02,0,35,fsdfsdf,i hope the id will not the same,./static/images/plays.png,
+2,16:44:29,0,35,dov,what tuf aare we doin,./static/images/playstation-iphone-wallpaper.jpg,
+3,16:44:51,0,0,dsddfs,fvdfvvfdvd,./static/images/kl.jpg,
