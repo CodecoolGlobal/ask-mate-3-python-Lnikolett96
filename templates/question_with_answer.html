@@ -25,6 +25,8 @@
             {% else %}
                 {% if element[key] == '' %}
                 <a href='/answer/{{ element["id"] }}/delete'><button >delete</button></a>
+                <a href='/answer/{{ element["id"] }}/vote-up'><button >Yayy :)</button></a>
+                <a href='/answer/{{ element["id"] }}/vote-down'><button >Nayy :(</button></a>
             {% else %}
                 {{ element[key] }}
             {% endif %}

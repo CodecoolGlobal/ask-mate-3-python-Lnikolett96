@@ -115,12 +115,12 @@ def delete_question(question_id):
 
 @app.route('/answer/<answer_id>/delete',methods = ['GET','POST'])
 def delete_answer(answer_id):
-    print("hahoooooooooo")
     answers = []
     with open("./sample_data/answer.csv", "r") as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=",")
         for row in spamreader:
             answers.append(row)
+    question_id = answers[0]["question_id"]
     for index in range(len(answers)):
 
         if answers[index]['id'] == str(answer_id):
@@ -131,14 +131,14 @@ def delete_answer(answer_id):
 
 
     with open("./sample_data/answer.csv",'w', newline='') as file:
-        fieldnames = ["id","submission_time","question_id","message","image","functions"]
+        fieldnames = ["id","submission_time","question_id","vote_number","message","image","functions"]
         writer = csv.DictWriter(file,fieldnames=fieldnames)
         writer.writeheader()
         for dict in answers:
             writer.writerow(dict)
 
 
-    return redirect('/')
+    return redirect(f'/question/{question_id}')
 
 @app.route("/question/<question_id>/vote-up", methods = ['POST','GET'])
 def voteup(question_id):
@@ -183,6 +183,52 @@ def votedown(question_id):
             writer.writerow(dict)
 
     return redirect('/')
+
+@app.route("/answer/<answer_id>/vote-up", methods = ["GET", "POST"])
+def answer_vote_up(answer_id):
+    answer = []
+    with open("./sample_data/answer.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            answer.append(row)
+    question_id = answer[0]["question_id"]
+
+    for dicts in answer:
+        if dicts['id'] == answer_id:
+            dicts['vote_number'] = int(dicts.get('vote_number',0)) + 1
+
+
+    with open("./sample_data/answer.csv",'w', newline='') as file:
+        fieldnames = ["id","submission_time","question_id","vote_number","message","image","functions"]
+        writer = csv.DictWriter(file,fieldnames=fieldnames)
+        writer.writeheader()
+        for dict in answer:
+            writer.writerow(dict)
+
+    return redirect(f"/question/{question_id}")
+
+@app.route("/answer/<answer_id>/vote-down", methods = ['POST','GET'])
+def answer_vote_down(answer_id):
+    answer = []
+    with open("./sample_data/answer.csv", "r") as csvfile:
+        spamreader = csv.DictReader(csvfile, delimiter=",")
+        for row in spamreader:
+            answer.append(row)
+    question_id = answer[0]["question_id"]
+
+    for dicts in answer:
+        if dicts['id'] == answer_id:
+            dicts['vote_number'] = int(dicts.get('vote_number',0)) - 1
+
+
+    with open("./sample_data/answer.csv",'w', newline='') as file:
+        fieldnames = ["id","submission_time","question_id","vote_number","message","image","functions"]
+        writer = csv.DictWriter(file,fieldnames=fieldnames)
+        writer.writeheader()
+        for dict in answer:
+            writer.writerow(dict)
+
+    return redirect(f"/question/{question_id}")
 
 
 
