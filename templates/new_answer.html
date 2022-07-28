@@ -15,7 +15,6 @@
         <h1> {{ title_name }}</h1>
     {% endif %}
 
-
 <form action="/added-answer/{{ question_id }}" enctype="multipart/form-data" method="post">
     <input type="hidden" name="id" value="{{ id_num }}">
     <input type="hidden" name="submission_time" value="{{ time }}">
