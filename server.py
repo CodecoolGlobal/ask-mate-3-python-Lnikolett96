@@ -230,7 +230,29 @@ def answer_vote_down(answer_id):
 
     return redirect(f"/question/{question_id}")
 
+@app.route('/answer/<question_id>/new-answer', methods=['POST', 'GET'])
+def answer_questions(question_id):
+    answer_data = []
+    add = True
+    title = 'Add New Answer'
+    time = functions.current_time()
+    id_num = functions.make_new_id("./sample_data/answer.csv")
+    if request.method == 'POST':
+        functions.add_q_a_form("./sample_data/answer.csv", id_num, 0, 0, 'add')
 
+        answer_data['new_answer'] = request.form['new_answer']
+
+        return redirect(f"/answer/{question_id}")
+
+    return render_template('new_answer.html', add=add, title_name=title, time=time, question_id=question_id)
+
+@app.route('/added-answer/<question_id>', methods=['POST'])
+def add_new_answer(question_id):
+    id_num = functions.make_new_id("./sample_data/answer.csv")
+    if request.method == 'POST':
+        functions.add_q_a_form("./sample_data/answer.csv", id_num, question_id, 0, 'add')
+
+        return redirect('/')
 
 
 if __name__ == "__main__":
