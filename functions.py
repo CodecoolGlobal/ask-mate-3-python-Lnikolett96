@@ -1,10 +1,17 @@
 import csv
-from flask import Flask, request
+from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 
+ALLOWED_EXTENSIONS = {'png', 'jpg'}
 UPLOAD_FOLDER = "./static/images/"
 
 app = Flask(__name__)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def get_data_file(filename):
     data = []
@@ -61,7 +68,7 @@ def save_image(file_name_in_form):
     return img_source
 
 
-def add_q_a_form(csv_filename, id_num, mode, question_id, view_number=0, vote_number=0):
+def add_q_a_form(csv_filename, id_num, mode, view_number=0, vote_number=0):
     img_source = save_image('image')
     new_id = ''
     if mode == 'add':
@@ -71,9 +78,7 @@ def add_q_a_form(csv_filename, id_num, mode, question_id, view_number=0, vote_nu
     new_data = [new_id, request.form['submission_time'], view_number,
                 vote_number, request.form['title'], request.form['message'],
                 img_source]
-    if mode == 'answer':
-        new_data.insert(2, question_id)
-    if mode == 'add' or mode == 'answer':
+    if mode == 'add':
         write_in_csv(csv_filename, new_data)
     elif 'update':
         update_csv(csv_filename, id_num, new_data)

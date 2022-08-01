@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
         {% if add %}
         <title> {{ title_name }} </title>
-        {% elif update %}
+        {% else %}
         <title> {{ title_name }}</title>
-         {% else %}
-            <title>{{ title_name }}</title>
         {% endif %}
 </head>
 <body>
     {% if add %}
         <h1> {{ title_name }} </h1>
-    {% elif update %}
-        <h1> {{ title_name }}</h1>
     {% else %}
-        <h1>{{ title_name }}</h1>
+        <h1> {{ title_name }}</h1>
     {% endif %}
 
     {% if add %}
         <form action="/add-question" enctype="multipart/form-data" method="post">
-    {% elif update %}
-        <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
     {% else %}
-        <form action="/answer/<question_id>/new-answer" enctype="multipart/form-data" method="post">
+        <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
+
     {% endif %}
 
 

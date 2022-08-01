@@ -4,6 +4,7 @@ import functions
 
 app = Flask(__name__)
 
+@app.route("/")
 @app.route("/list")
 def hello():
     ranking = True
@@ -15,7 +16,7 @@ def hello():
 
     ordering_list = []
     ordered_by = request.args.get("ordered_by", "title")
-    order_direction = request.args.get("order_direction", "asc")
+    order_direction = request.args.get("order_direction", "desc")
     if order_direction == "asc":
         ranking = False
     else:
@@ -44,10 +45,9 @@ def add_question():
     time = functions.current_time()
     id_num = functions.make_new_id("./sample_data/question.csv")
     if request.method == 'POST':
-        functions.add_q_a_form("./sample_data/question.csv", id_num, 'add', 0, 0)
+        functions.add_q_a_form("./sample_data/question.csv", id_num,'add', 0, 0)
         return redirect('/')
-    return render_template('add.html', add=add, title_name=title, id_num=id_num, time=time)
-
+    return render_template('add.html', add=add, title_name=title, time=time)
 
 @app.route('/update-question/<id_num>', methods=['GET', 'POST'])
 def update_question(id_num):
@@ -64,7 +64,6 @@ def update_question(id_num):
     return render_template('add.html', add=add, update=update, title_name=title_name, time=time,
                            id_num=updated_user[0], submission_time=time, view_number=view_number,
                            vote_number=vote_number, title=updated_user[4], message=updated_user[5])
-
 
 @app.route('/delete')
 def delete_page():
@@ -101,6 +100,8 @@ def delete_question(question_id):
             del questions[index]
             print(questions)
             break
+
+
 
     with open("./sample_data/question.csv",'w', newline='') as file:
         fieldnames = ["id","submission_time","view_number","vote_number","title", "message","image","functions"]
@@ -229,24 +230,21 @@ def answer_vote_down(answer_id):
 
     return redirect(f"/question/{question_id}")
 
-
 @app.route('/answer/<question_id>/new-answer', methods=['POST', 'GET'])
 def answer_questions(question_id):
     answer_data = []
-    answer = True
-    add = False
-    update = False
+    add = True
     title = 'Add New Answer'
     time = functions.current_time()
     id_num = functions.make_new_id("./sample_data/answer.csv")
-    id_question = question_id
     if request.method == 'POST':
-        functions.add_q_a_form("./sample_data/answer.csv", 'add', id_num, id_question, 0, 0)
+        functions.add_q_a_form("./sample_data/answer.csv", id_num, 0, 0, 'add')
+
+        answer_data['new_answer'] = request.form['new_answer']
 
         return redirect(f"/answer/{question_id}")
 
-    return render_template('new_answer.html',add=add, update=update, answer=answer, title_name=title,
-                           time=time, question_id=question_id)
+    return render_template('new_answer.html', add=add, title_name=title, time=time, question_id=question_id)
 
 @app.route('/added-answer/<question_id>', methods=['POST'])
 def add_new_answer(question_id):
