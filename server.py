@@ -19,12 +19,14 @@ def hello(): # CSV file_open, ordering
 def add_question():
     add = True
     title = 'Add Question'
-    time = functions.current_time()
-
     if request.method == 'POST':
+        title = request.form.get('title')
+        message = request.form.get('message')
+        image = request.form.get('image')
+        functions.add_question(title, message, image)
         # functions_data_manager, database_common
         return redirect('/')
-    return render_template('add.html', add=add, title_name=title, time=time)
+    return render_template('add.html', add=add, title_name=title)
 
 
 @app.route('/update-question/<id_num>', methods=['GET', 'POST'])

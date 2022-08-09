@@ -1,15 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
+import database_common
 
 UPLOAD_FOLDER = "./static/images/"
 
 app = Flask(__name__)
 
 
-def current_time():
-    now = datetime.now()
-    time_current = now.strftime("%H:%M:%S")
-    return time_current
+@database_common.connection_handler
+def add_question(cursor, title, message, image) -> list:
+    image = save_image("image")
+    query = """
+    INSERT INTO question(title, message, image)
+    VALUES (%(title)s, %(message)s, %(image)s) 
+    """
+    cursor.execute(query, {'title': title, 'message': message, 'image': image})
 
 
 def save_image(file_name_in_form):
