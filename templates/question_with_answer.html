@@ -16,6 +16,7 @@
                 {% if values == 'id' %}
                     <td>
                         <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
+
                     </td>
                 {% else %}
                     <td>{{ answer[values] }}</td>
@@ -25,6 +26,8 @@
                 {% endif %}
 
             {% endfor %}
+                <td><button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button></td>
+
             </tr>
         {% endfor %}
 

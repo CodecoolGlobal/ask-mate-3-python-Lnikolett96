@@ -63,8 +63,8 @@ def delete_question(question_id):
 
 @app.route('/answer/<answer_id>/delete',methods = ['GET','POST'])
 def delete_answer(answer_id):
-
-    return redirect(f'/question/{question_id}')
+    mijenkcsihadjale.del_answer(answer_id)
+    return redirect('/')
 
 
 @app.route("/question/<question_id>/vote-up", methods = ['POST','GET'])

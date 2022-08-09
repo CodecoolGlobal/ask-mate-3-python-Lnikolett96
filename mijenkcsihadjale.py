@@ -26,3 +26,11 @@ def del_question(cursor, id):
     question WHERE id = %(id)s
     """
     cursor.execute(query, {'id':id})
+
+@database_common.connection_handler
+def del_answer(cursor, id):
+    query = """
+    DELETE FROM
+    answer WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id': id})
