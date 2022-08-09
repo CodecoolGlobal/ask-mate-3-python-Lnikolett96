@@ -35,7 +35,7 @@ def get_update_question(id_num):
         message = request.form.get('message')
         image = request.form.get('image')
         functions.update_question(id_num, title, message, image)
-        return redirect(url_for('/'))
+        return redirect('/')
     return render_template('add.html', question=question, id_num=id_num,
                            add=False,
                            title_name=title_name)
