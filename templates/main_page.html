@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block page_title %}
-    Main page
+    Main Page
 {% endblock %}
 {% block content %}
     <table style="text-align: center">
@@ -12,8 +12,17 @@
     <tr>
         {% for question in questions %}
             <tr>
-            {% for values in question.values() %}
-                <td>{{ values }}</td>
+            {% for values in question %}
+                {% if values == 'id' %}
+                    <td>
+                        <a href="/question/{{ question[values] }}">{{ question[values] }}</a>
+                    </td>
+                {% else %}
+                    <td>{{ question[values] }}</td>
+
+
+                
+                {% endif %} 
 
             {% endfor %}
             </tr>

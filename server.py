@@ -6,12 +6,9 @@ app = Flask(__name__)
 
 @app.route("/")
 @app.route("/list")
-def hello(): # CSV file_open, ordering
-    order_by = request.args.get('ordering')
+def hello():
+    order_by = request.args.get('ordering', 'id')
     questions = mijenkcsihadjale.main_page(order_by)
-
-
-
     return render_template('main_page.html', questions = questions)
 
 
@@ -50,9 +47,11 @@ def delete_page():
 
 
 @app.route('/question/<question_id>')
-def display_question_and_answer(question_id): #answer_csv
+def display_question_and_answer(question_id):
+    answers = mijenkcsihadjale.link_with_answer(question_id)
 
-    return render_template('question_with_answer.html',questions_again = answers)
+
+    return render_template('question_with_answer.html',answers = answers)
 
 
 @app.route('/question/<question_id>/delete',methods = ['GET','POST'])
