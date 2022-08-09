@@ -1,13 +1,18 @@
 from flask import Flask, render_template, redirect, url_for, request
 import functions
+import mijenkcsihadjale
 
 app = Flask(__name__)
 
 @app.route("/")
 @app.route("/list")
 def hello(): # CSV file_open, ordering
+    order_by = request.args.get('ordering')
+    questions = mijenkcsihadjale.main_page(order_by)
 
-    return render_template('main_page.html')
+
+
+    return render_template('main_page.html', questions = questions)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
