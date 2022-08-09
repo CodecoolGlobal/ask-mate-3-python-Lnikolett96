@@ -21,10 +21,13 @@
                     <td>{{ question[values] }}</td>
 
 
+
                 
-                {% endif %} 
+                {% endif %}
+
 
             {% endfor %}
+            <td><button><a href="/delete/{{ question['id'] }}">DELETE</a></button></td>
             </tr>
         {% endfor %}
 

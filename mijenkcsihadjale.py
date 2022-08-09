@@ -18,3 +18,11 @@ def link_with_answer(cursor, id):
     query = """ SELECT * FROM answer WHERE question_id = %(id)s"""
     cursor.execute(query, {'id': id})
     return cursor.fetchall()
+
+@database_common.connection_handler
+def del_question(cursor, id):
+    query = """
+    DELETE FROM
+    question WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id':id})

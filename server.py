@@ -41,9 +41,10 @@ def update_question(id_num):
                            submission_time=time, view_number=view_number,
                            vote_number=vote_number)
 
-@app.route('/delete')
-def delete_page():
-    return render_template('delete_page.html')
+@app.route('/delete/<question_id>')
+def delete_page(question_id):
+    mijenkcsihadjale.del_question(question_id)
+    return redirect('/')
 
 
 @app.route('/question/<question_id>')
