@@ -27,19 +27,18 @@ def add_question():
 
 
 @app.route('/update-question/<id_num>', methods=['GET', 'POST'])
-def update_question(id_num):
-    add = False
-    update = True
+def get_update_question(id_num):
     title_name = 'Update Question'
-    time = functions.current_time()
-
-
+    question = functions.get_question(id_num)
     if request.method == 'POST':
-
-        return redirect('/')
-    return render_template('add.html', time=time,
-                           submission_time=time, view_number=view_number,
-                           vote_number=vote_number)
+        title = request.form.get('title')
+        message = request.form.get('message')
+        image = request.form.get('image')
+        functions.update_question(id_num, title, message, image)
+        return redirect(url_for('/'))
+    return render_template('add.html', question=question, id_num=id_num,
+                           add=False,
+                           title_name=title_name)
 
 @app.route('/delete/<question_id>')
 def delete_page(question_id):
