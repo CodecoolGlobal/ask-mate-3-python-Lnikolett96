@@ -27,8 +27,9 @@
 
             <td><button><a href="/question/{{ question['id'] }}/vote-up">UP</a></button></td>
             <td><button><a href="/question/{{ question['id'] }}/vote-down">DOWN</a></button></td>
-
             <td><button><a href="/added-answer/{{ question['id'] }}">Add Answer</a></button></td>
+            <td><button><a href="/add-question">Add Question</a></button></td>
+            <td><button><a href="/update-question/{{ question['id'] }}">Update Question</a></button></td>
 
             </tr>
         {% endfor %}
