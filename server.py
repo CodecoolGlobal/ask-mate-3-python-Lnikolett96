@@ -74,19 +74,20 @@ def voteup(question_id):
 
 @app.route("/question/<question_id>/vote-down", methods = ['POST','GET'])
 def votedown(question_id):
-
+    mijenkcsihadjale.vote_down(question_id)
     return redirect('/')
 
 
-@app.route("/answer/<answer_id>/vote-up", methods = ["GET", "POST"])
-def answer_vote_up(answer_id):
+@app.route("/answer/<answer_id>/vote-down/<question_id>", methods = ['POST','GET'])
+def answer_vote_down(answer_id, question_id):
+    mijenkcsihadjale.answer_vote_down(answer_id)
 
     return redirect(f"/question/{question_id}")
 
 
-@app.route("/answer/<answer_id>/vote-down", methods = ['POST','GET'])
-def answer_vote_down(answer_id):
-
+@app.route("/answer/<answer_id>/vote-up/<question_id>", methods = ['POST','GET'])
+def answer_vote_up(answer_id, question_id):
+    mijenkcsihadjale.answer_vote_up(answer_id)
     return redirect(f"/question/{question_id}")
 
 

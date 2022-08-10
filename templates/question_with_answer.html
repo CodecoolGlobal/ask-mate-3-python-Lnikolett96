@@ -27,6 +27,8 @@
 
             {% endfor %}
                 <td><button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button></td>
+                <td><button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a></button></td>
+                <td><button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a></button></td>
 
             </tr>
         {% endfor %}

@@ -44,3 +44,32 @@ def del_answer(cursor, id):
     """
     cursor.execute(query, {'id': id})
 
+@database_common.connection_handler
+def vote_down(cursor, id):
+    query = """
+    UPDATE question
+    SET vote_number = vote_number - 1
+    WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id':id})
+
+@database_common.connection_handler
+def answer_vote_down(cursor, id):
+    query = """
+    UPDATE answer
+    SET vote_number = vote_number - 1
+    WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id':id})
+
+@database_common.connection_handler
+def answer_vote_up(cursor, id):
+    query = """
+    UPDATE answer
+    SET vote_number = vote_number + 1
+    WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id':id})
+
+
+
