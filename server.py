@@ -104,12 +104,22 @@ def add_answer_comment(answer_id):
     if request.method == 'GET':
         return render_template('add_comment.html', answer_id=answer_id)
     elif request.method == 'POST':
-        print('belemegye')
         message = request.form.get('comment')
         question_id = mijenkcsihadjale.get_question_id(answer_id)
         mijenkcsihadjale.add_comment_to_answer(answer_id, message)
-        print(question_id)
         return redirect(f"/question/{question_id[0]['question_id']}")
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_question_comment(question_id):
+    if request.method == 'GET':
+
+        return render_template('add_comment_to_question.html', question_id=question_id)
+
+    elif request.method == 'POST':
+        message = request.form.get('comment')
+        print(question_id)
+        mijenkcsihadjale.add_comment_to_question(question_id, message)
+        return redirect("/")
 
 
 if __name__ == "__main__":
