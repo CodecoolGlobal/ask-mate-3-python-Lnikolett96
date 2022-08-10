@@ -15,20 +15,22 @@
         {% else %}
             <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
         {% endif %}
-    {% for item in question %}
         <h3>Title</h3>
         {% if add %}
             <input type="text" name="title" required>
         {% else %}
+            {% for item in question  %}
             <input type="text" name="title" required value="{{ item.title }}">
+            {% endfor %}
         {% endif %}
         <h3> What is your Question?</h3>
         {% if add %}
             <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
         {% else %}
+            {% for item in question %}
             <textarea itemtype="text" name="message" required cols="20" rows="10">{{ item.message }}</textarea>
-        {% endif %}
             {% endfor %}
+        {% endif %}
         <h3>Upload photo</h3>
         <input type="file" name="image" accept="imagitge/*">
         {% if add %}
