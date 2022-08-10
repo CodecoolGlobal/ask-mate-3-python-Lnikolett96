@@ -26,3 +26,13 @@ def del_question(cursor, id):
     question WHERE id = %(id)s
     """
     cursor.execute(query, {'id':id})
+
+@database_common.connection_handler
+def vote_up(cursor, id):
+    query = """
+    UPDATE question
+    SET vote_number = vote_number + 1
+    WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id':id})
+

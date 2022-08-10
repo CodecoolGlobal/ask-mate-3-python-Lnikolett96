@@ -69,7 +69,7 @@ def delete_answer(answer_id):
 
 @app.route("/question/<question_id>/vote-up", methods = ['POST','GET'])
 def voteup(question_id):
-
+    mijenkcsihadjale.vote_up(question_id)
     return redirect('/')
 
 
