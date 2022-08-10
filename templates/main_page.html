@@ -3,6 +3,11 @@
     Main Page
 {% endblock %}
 {% block content %}
+    <h1>Search</h1>
+    <form action="/search" method="post">
+        <input type="text" name="search">
+        <button type="submit">Search</button>
+    </form>
     <table style="text-align: center">
     <tr >
         {% for key in questions[0].keys() %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Founded</title>
+</head>
+<body>
+<h1>The hits: {{ expression }}</h1>
+
+<table style="text-align: center">
+    <tr>
+        {% for key in questions[0].keys() %}
+            <td>{{ key }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for question in questions %}
+            <tr>
+                {% for values in question %}
+                    {% if values == 'id' %}
+                        <td>
+                            <a href="/question/{{ question[values] }}">{{ question[values] }}</a>
+                        </td>
+                    {% else %}
+                        <td>{{ question[values] }}</td>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </tr>
+        {% endfor %}
+    </tr>
+</table>
+
+<button><a href="/list">Back to Main Page</a></button>
+
+</body>
+</html>
