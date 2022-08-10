@@ -5,6 +5,10 @@ from psycopg2.extras import RealDictCursor
 
 import database_common
 
+@database_common.connection_handler
+def get_img_src(cursor,id):
+    cursor.execute(sql.SQL("select image from question where id = %s" % id))
+    return cursor.fetchall()
 
 @database_common.connection_handler
 def main_page(cursor, order_by):
@@ -83,3 +87,5 @@ def get_question_id(cursor, answer_id):
 @database_common.connection_handler
 def add_comment_to_question(cursor, question_id, new_comment):
     cursor.execute(sql.SQL("insert into comment(question_id,message) values (%s, '%s')" % (question_id, new_comment)))
+
+

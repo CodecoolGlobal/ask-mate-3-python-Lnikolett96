@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 import functions
 import mijenkcsihadjale
+import os
 
 app = Flask(__name__)
 
@@ -44,8 +45,17 @@ def get_update_question(id_num):
 
 @app.route('/delete/<question_id>')
 def delete_page(question_id):
+
+    img_src = mijenkcsihadjale.get_img_src(question_id)
+    try:
+        if img_src[0]['image']:
+            os.remove(img_src[0]['image'])
+    except FileNotFoundError:
+        pass
     mijenkcsihadjale.del_question(question_id)
     return redirect('/')
+
+
 
 
 @app.route('/question/<question_id>')
