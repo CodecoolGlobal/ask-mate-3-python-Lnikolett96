@@ -16,6 +16,15 @@ def add_question(cursor, title, message, image) -> list:
     """
     cursor.execute(query, {'title': title, 'message': message, 'image': image})
 
+@database_common.connection_handler
+def add_answer(cursor, question_id, message, image) -> list:
+    image = save_image("image")
+    query = """
+    INSERT INTO answer(question_id, message, image)
+    VALUES (%(question_id)s, %(message)s, %(image)s)
+    """
+    cursor.execute(query, {'question_id': question_id, 'message': message, 'image': image})
+
 
 def save_image(file_name_in_form):
     uploaded_file = request.files[file_name_in_form]

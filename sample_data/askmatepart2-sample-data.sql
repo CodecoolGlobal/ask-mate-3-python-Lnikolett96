@@ -30,8 +30,8 @@ CREATE TABLE question (
 DROP TABLE IF EXISTS public.answer;
 CREATE TABLE answer (
     id serial NOT NULL,
-    submission_time timestamp without time zone,
-    vote_number integer,
+    submission_time timestamp without time zone default now(),
+    vote_number integer default 0,
     question_id integer,
     message text,
     image text

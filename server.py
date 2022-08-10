@@ -91,24 +91,18 @@ def answer_vote_up(answer_id, question_id):
     return redirect(f"/question/{question_id}")
 
 
-@app.route('/answer/<question_id>/new-answer', methods=['POST', 'GET'])
-def answer_questions(question_id):
-    time = functions.current_time()
 
-    if request.method == 'POST':
-
-        return redirect(f"/answer/{question_id}")
-
-    return render_template('new_answer.html', time=time)
-
-
-@app.route('/added-answer/<question_id>', methods=['POST'])
+@app.route('/added-answer/<question_id>', methods=['GET', 'POST'])
 def add_new_answer(question_id):
-
+    add = True
+    title = 'Add Answer'
+    question = functions.get_question(question_id)
     if request.method == 'POST':
-
-        return redirect('/')
-
+        message = request.form.get('message')
+        image = request.form.get('image')
+        functions.add_answer(question_id, message, image)
+        return redirect ('/')
+    return render_template('new_answer.html',question_id=question_id, add=add, title_name=title, question=question)
 
 if __name__ == "__main__":
     app.run(
