@@ -1,44 +1,42 @@
 {% extends "layout.html" %}
 
 {% block page_title %}
-    Add question
+    {% if add %}
+        Add question
+    {% else %}
+        Update question
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
-    {% if add %}
-        <h1> {{ title_name }} </h1>
-    {% else %}
-        <h1> {{ title_name }}</h1>
-    {% endif %}
-
-    {% if add %}
-        <form action="/add-question" enctype="multipart/form-data" method="post">
-    {% else %}
-        <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
-
-    {% endif %}
-
-
-<h3>Title</h3>
-{% if add %}
-    <input type="text" name="title" required>
-{% else %}
-    <input type="text" name="title" required value="{{ title }}">
-{% endif %}
-<h3> What is your Question?</h3>
-{% if add %}
-    <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
-{% else %}
-    <textarea itemtype="text" name="message" required cols="20" rows="10">{{ message }}</textarea>
-{% endif %}
-<h3>Upload photo</h3>
-<input type="file" name="image" accept="imagitge/*">
-{% if add %}
-    <button type="submit">Send Question</button>
-{% else %}
-    <button type="submit">Update Question</button>
-{% endif %}
-</form>
-    <img src={{ url_for('static', filename=image) }}>
+        {% if add %}
+            <form action="/add-question" enctype="multipart/form-data" method="post">
+        {% else %}
+            <form action="/update-question/{{ id_num }}" enctype="multipart/form-data" method="post">
+        {% endif %}
+        <h3>Title</h3>
+        {% if add %}
+            <input type="text" name="title" required>
+        {% else %}
+            {% for item in question  %}
+            <input type="text" name="title" required value="{{ item.title }}">
+            {% endfor %}
+        {% endif %}
+        <h3> What is your Question?</h3>
+        {% if add %}
+            <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
+        {% else %}
+            {% for item in question %}
+            <textarea itemtype="text" name="message" required cols="20" rows="10">{{ item.message }}</textarea>
+            {% endfor %}
+        {% endif %}
+        <h3>Upload photo</h3>
+        <input type="file" name="image" accept="imagitge/*">
+        {% if add %}
+            <button type="submit">Send Question</button>
+        {% else %}
+            <button type="submit">Update Question</button>
+        {% endif %}
+        </form>
 {% endblock %}
