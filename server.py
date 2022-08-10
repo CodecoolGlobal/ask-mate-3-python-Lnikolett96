@@ -4,12 +4,13 @@ import mijenkcsihadjale
 
 app = Flask(__name__)
 
+
 @app.route("/")
 @app.route("/list")
 def hello():
     order_by = request.args.get('ordering', 'id')
     questions = mijenkcsihadjale.main_page(order_by)
-    return render_template('main_page.html', questions = questions)
+    return render_template('main_page.html', questions=questions)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -40,6 +41,7 @@ def get_update_question(id_num):
                            add=False,
                            title_name=title_name)
 
+
 @app.route('/delete/<question_id>')
 def delete_page(question_id):
     mijenkcsihadjale.del_question(question_id)
@@ -50,41 +52,45 @@ def delete_page(question_id):
 def display_question_and_answer(question_id):
     answers = mijenkcsihadjale.link_with_answer(question_id)
 
-
-    return render_template('question_with_answer.html',answers = answers)
-
+    return render_template('question_with_answer.html', answers=answers)
 
 
-@app.route('/answer/<answer_id>/delete',methods = ['GET','POST'])
+@app.route('/answer/<answer_id>/delete', methods=['GET', 'POST'])
 def delete_answer(answer_id):
     mijenkcsihadjale.del_answer(answer_id)
     return redirect('/')
 
 
-@app.route("/question/<question_id>/vote-up", methods = ['POST','GET'])
+@app.route("/question/<question_id>/vote-up", methods=['POST', 'GET'])
 def voteup(question_id):
     mijenkcsihadjale.vote_up(question_id)
     return redirect('/')
 
 
-@app.route("/question/<question_id>/vote-down", methods = ['POST','GET'])
+@app.route("/question/<question_id>/vote-down", methods=['POST', 'GET'])
 def votedown(question_id):
     mijenkcsihadjale.vote_down(question_id)
     return redirect('/')
 
 
-@app.route("/answer/<answer_id>/vote-down/<question_id>", methods = ['POST','GET'])
+@app.route("/answer/<answer_id>/vote-down/<question_id>", methods=['POST', 'GET'])
 def answer_vote_down(answer_id, question_id):
     mijenkcsihadjale.answer_vote_down(answer_id)
 
     return redirect(f"/question/{question_id}")
 
 
-@app.route("/answer/<answer_id>/vote-up/<question_id>", methods = ['POST','GET'])
+@app.route("/answer/<answer_id>/vote-up/<question_id>", methods=['POST', 'GET'])
 def answer_vote_up(answer_id, question_id):
     mijenkcsihadjale.answer_vote_up(answer_id)
     return redirect(f"/question/{question_id}")
 
+@app.route('/')
+@app.route('/search', methods=['POST'])
+def search_question():
+    expression = request.form.get('search')
+    founded = functions.search_question(expression)
+    return render_template('founded.html', questions=founded, expression=expression)
 
 
 @app.route('/added-answer/<question_id>', methods=['GET', 'POST'])
@@ -96,8 +102,9 @@ def add_new_answer(question_id):
         message = request.form.get('message')
         image = request.form.get('image')
         functions.add_answer(question_id, message, image)
-        return redirect ('/')
-    return render_template('new_answer.html',question_id=question_id, add=add, title_name=title, question=question)
+        return redirect('/')
+    return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question)
+
 
 @app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
 def add_answer_comment(answer_id):
