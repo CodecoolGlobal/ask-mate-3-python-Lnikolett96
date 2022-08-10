@@ -99,6 +99,19 @@ def add_new_answer(question_id):
         return redirect ('/')
     return render_template('new_answer.html',question_id=question_id, add=add, title_name=title, question=question)
 
+@app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
+def add_answer_comment(answer_id):
+    if request.method == 'GET':
+        return render_template('add_comment.html', answer_id=answer_id)
+    elif request.method == 'POST':
+        print('belemegye')
+        message = request.form.get('comment')
+        question_id = mijenkcsihadjale.get_question_id(answer_id)
+        mijenkcsihadjale.add_comment_to_answer(answer_id, message)
+        print(question_id)
+        return redirect(f"/question/{question_id[0]['question_id']}")
+
+
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',

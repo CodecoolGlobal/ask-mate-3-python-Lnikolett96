@@ -71,5 +71,11 @@ def answer_vote_up(cursor, id):
     """
     cursor.execute(query, {'id':id})
 
+@database_common.connection_handler
+def add_comment_to_answer(cursor, answer_id, new_message):
+    cursor.execute(sql.SQL("insert into comment(answer_id,message) values (%s, '%s')" % (answer_id,new_message)))
 
-
+@database_common.connection_handler
+def get_question_id(cursor, answer_id):
+    cursor.execute(sql.SQL("select question_id from answer where id=%s" % answer_id))
+    return cursor.fetchall()
