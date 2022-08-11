@@ -4,6 +4,8 @@
 {% endblock %}
 {% block content %}
     <h2>Answer</h2>
+    <h4>Tags:</h4>
+    <p>{{ tag[0]['name'] }}</p>
     <table style="text-align: center">
         <tr>
             {% for key in answers[0].keys() %}
@@ -16,7 +18,7 @@
                     {% for values in answer %}
                         {% if values == 'id' %}
                             <td>
-                                <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
+                                <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
                             </td>
                         {% elif values == 'image' %}
                             <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
