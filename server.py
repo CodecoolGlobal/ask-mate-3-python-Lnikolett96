@@ -86,6 +86,7 @@ def display_question_and_answer(question_id):
 @app.route('/answer/<answer_id>/', methods=['GET', 'POST'])
 def dislay_answer_comments(answer_id):
     comments = mijenkcsihadjale.display_comments_in_answer(answer_id)
+    print(comments)
     return render_template('comment_for_answer.html', comments=comments)
 
 @app.route('/comments/<comment_id>/delete')
