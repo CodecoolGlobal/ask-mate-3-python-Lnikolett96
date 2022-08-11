@@ -103,3 +103,9 @@ def display_comments_in_answer(cursor, id):
 def delete_comments_from_question(cursor, comment_id):
     cursor.execute(sql.SQL("DELETE FROM comment WHERE id=%s" % comment_id))
 
+@database_common.connection_handler
+def main_page_latest_five(cursor):
+    query = sql.SQL("select * from question order by submission_time limit 5")
+    cursor.execute(query)
+    return cursor.fetchall()
+
