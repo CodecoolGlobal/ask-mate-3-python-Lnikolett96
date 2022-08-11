@@ -7,6 +7,9 @@ app = Flask(__name__)
 
 
 @app.route("/")
+def five_latest_questions():
+    five_latest = mijenkcsihadjale.main_page_latest_five()
+    return render_template('main_page.html', questions=five_latest)
 @app.route("/list")
 def hello():
     order_by = request.args.get('ordering', 'id')
