@@ -15,7 +15,7 @@
             {% for values in answer %}
                 {% if values == 'id' %}
                     <td>
-                        <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
+                        <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
                     </td>
                 {% elif values == 'image' %}
                     <td><img  style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>

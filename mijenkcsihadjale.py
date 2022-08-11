@@ -94,3 +94,7 @@ def display_comments(cursor, id):
     return cursor.fetchall()
 
 
+@database_common.connection_handler
+def display_comments_in_answer(cursor, id):
+    cursor.execute(sql.SQL("SELECT answer_id, message, edited_count FROM comment WHERE answer_id=%s" % id))
+    return cursor.fetchall()
