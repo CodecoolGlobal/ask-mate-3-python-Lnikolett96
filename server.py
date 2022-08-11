@@ -183,7 +183,11 @@ def update_comment(id_num):
 
 @app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
 def add_tag(question_id):
-    pass
+    if request.method == 'GET':
+
+        return render_template('add_tag.html', question_id = question_id)
+    elif request.method == 'POST':
+        pass
 
 
 if __name__ == "__main__":

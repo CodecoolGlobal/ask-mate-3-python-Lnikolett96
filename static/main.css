@@ -7,7 +7,7 @@ html {
 .neon_blue {
 
         animation: neonAnim 2s alternate-reverse infinite;
-        color: #3E24D9;
+        color: #3E24D9;  /* red színnel jobban látszik a nevünk */
         font-family: "Britannic Bold";
         font-size: 45px;
     }

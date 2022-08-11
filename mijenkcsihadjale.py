@@ -127,6 +127,11 @@ def add_tag(cursor, question_id, name):
     tag_id = tagid[0]['id']
     cursor.execute(sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" %(question_id, tag_id)))
 
+@database_common.connection_handler
+def get_all_tag(cursor):
+    pass
+
+
 
 
 
