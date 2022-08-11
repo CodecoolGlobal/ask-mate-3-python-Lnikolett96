@@ -109,3 +109,10 @@ def main_page_latest_five(cursor):
     cursor.execute(query)
     return cursor.fetchall()
 
+@database_common.connection_handler
+def question_tag(cursor, question_id):
+    cursor.execute(sql.SQL("select name from tag inner join question_tag on tag.id = question_tag.tag_id where question_id=%s" % question_id))
+    return cursor.fetchall()
+
+
+

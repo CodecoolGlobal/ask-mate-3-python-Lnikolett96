@@ -78,9 +78,10 @@ def display_question_and_answer(question_id):
 
     answers = mijenkcsihadjale.link_with_answer(question_id)
     comments = mijenkcsihadjale.display_comments(question_id)
+    tag = mijenkcsihadjale.question_tag(question_id)
+    print(tag)
 
-
-    return render_template('question_with_answer.html', answers=answers, comments=comments)
+    return render_template('question_with_answer.html', answers=answers, comments=comments, tag=tag)
 
 
 @app.route('/answer/<answer_id>/', methods=['GET', 'POST'])
@@ -178,6 +179,11 @@ def update_comment(id_num):
         functions.update_comment(id_num, message)
         return redirect('/list')
     return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
+
+
+@app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
+def add_tag(question_id):
+    pass
 
 
 if __name__ == "__main__":
