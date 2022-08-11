@@ -1,5 +1,39 @@
+html {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+.neon_blue {
+
+        animation: neonAnim 2s alternate-reverse infinite;
+        color: #3E24D9;
+        font-family: "Britannic Bold";
+        font-size: 45px;
+    }
+    @keyframes neonAnim {
+    from {
+        text-shadow:
+          0 0 10px rgba(62, 36, 217, .7),
+          0 0 40px rgba(62, 36, 217, .7),
+          0 0 100px rgba(62, 36, 217, .7);
+      }
+      to {
+        text-shadow:
+          0 0 5px rgba(62, 36, 217, .7),
+          0 0 20px rgba(62, 36, 217, .7),
+          0 0 60px rgba(62, 36, 217, .7);
+      }
+}
 .page-title {
     text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: cornflowerblue;
+    padding: 20px 0 20px 0;
+    margin: 20px 0 40px 0;
+}
+.main-table {
+    border: 2px solid;
+    margin: 20px 0 20px 0;
+    width: 100%;
+}
+.main-table tr {
+    border-bottom: 2px solid #fff;
 }
