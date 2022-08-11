@@ -115,21 +115,37 @@ def question_tag(cursor, question_id):
     return cursor.fetchall()
 
 @database_common.connection_handler
-def get_new_tag_id(cursor, name):
-    cursor.execute(sql.SQL("SELECT id From tag WHERE name=(%s)" % (name)))
+def get_new_tag_id(cursor, tag):
+    cursor.execute(sql.SQL("SELECT * FROM tag WHERE name=%s" % (tag)))
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def get_all_tag(cursor):
+    cursor.execute(sql.SQL("SELECT name FROM tag"))
     return cursor.fetchall()
 
 
 @database_common.connection_handler
 def add_tag(cursor, question_id, name):
-    cursor.execute(sql.SQL("INSERT INTO tag(name) VALUES (%s)" % (name)))
+    minden_tag = get_all_tag()
     tagid = get_new_tag_id(name)
     tag_id = tagid[0]['id']
-    cursor.execute(sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" %(question_id, tag_id)))
+    for element in minden_tag:
+        if element['name'] == name:
+            cursor.execute(
+                sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
+        else:
+            cursor.execute(sql.SQL("INSERT INTO tag(name) VALUES (%s)" % (name)))
+            cursor.execute(
+                sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
 
-@database_common.connection_handler
-def get_all_tag(cursor):
-    pass
+
+
+
+
+
+
+
 
 
 
