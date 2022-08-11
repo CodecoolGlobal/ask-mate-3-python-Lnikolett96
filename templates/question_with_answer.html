@@ -3,9 +3,18 @@
     Answer Page
 {% endblock %}
 {% block content %}
+    {% if answers == [] %}
+        <h1>SORRY BUT THERE IS NO ANSWER FOR THIS QUESTION</h1>
+        <button><a href="/">Zsa főoldal</a></button>
+    {% else %}
+
     <h2>Answer</h2>
+        {% if tag != [] %}
+
+
     <h4>Tags:</h4>
     <p>{{ tag[0]['name'] }}</p>
+        {% endif %}
     <table style="text-align: center">
         <tr>
             {% for key in answers[0].keys() %}
@@ -82,5 +91,6 @@
         {% else %}
         <h1>Nincs comment Tess!</h1>
         <button><a href="/">Zsa főoldal</a></button>
+    {% endif %}
     {% endif %}
 {% endblock %}
