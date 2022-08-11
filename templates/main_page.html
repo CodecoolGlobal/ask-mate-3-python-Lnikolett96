@@ -21,7 +21,7 @@
             {% for values in question %}
                 {% if values == 'id' %}
                     <td>
-                        <a href="/question/{{ question[values] }}">{{ question[values] }}</a>
+                        <a id="question_id" href="/question/{{ question[values] }}">{{ question[values] }}</a>
                     </td>
                 {% elif values == 'image' %}
                     <td><img style="height: 70px" src="{{ question[values]}}" alt="here is a pics"></td>
@@ -57,5 +57,5 @@
         <input type="submit" value="Order">
     </form>
     <button><a href="/list">List all</a></button>
-    <td><button><a href="/add-question">Add Question</a></button></td>
+    <td><button id="aquestion"><a href="/add-question">Add Question</a></button></td>
 {% endblock %}
