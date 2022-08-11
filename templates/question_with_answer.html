@@ -1,54 +1,66 @@
 {% extends "layout.html" %}
 {% block page_title %}
-    Main Page
+    Answer Page
 {% endblock %}
 {% block content %}
     <table style="text-align: center">
-    <tr >
-        {% for key in answers[0].keys() %}
-            <td>{{ key }}</td>
-        {% endfor %}
-    </tr>
-    <tr>
-        {% for answer in answers %}
-            <tr>
-            {% for values in answer %}
-                {% if values == 'id' %}
-                    <td>
-                        <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
-                    </td>
-                {% elif values == 'image' %}
-                    <td><img  style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
-
-                {% else %}
-                    <td>{{ answer[values] }}</td>
-
-
-
-                {% endif %}
-
+        <tr>
+            {% for key in answers[0].keys() %}
+                <td>{{ key }}</td>
             {% endfor %}
-                <td><button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/new-comment">NEW COMMENT</a></button></td>
-            </tr>
-        {% endfor %}
+        </tr>
+        <tr>
+            {% for answer in answers %}
+                <tr>
+                    {% for values in answer %}
+                        {% if values == 'id' %}
+                            <td>
+                                <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
+                            </td>
+                        {% elif values == 'image' %}
+                            <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
 
-    </tr>
+                        {% else %}
+                            <td>{{ answer[values] }}</td>
+
+
+
+                        {% endif %}
+
+                    {% endfor %}
+                    <td>
+                        <button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button>
+                    </td>
+                    <td>
+                        <button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a>
+                        </button>
+                    </td>
+                    <td>
+                        <button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a></button>
+                    </td>
+                    <td>
+                        <button><a href="/update-answer/{{ answer['id'] }}">Edit</a></button>
+                    </td>
+                    <td>
+                        <button><a href="/answer/{{ answer['id'] }}/new-comment">NEW COMMENT</a></button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tr>
     </table>
 
     <form action="/list" method="get">
-    <select name="ordering" id="ordering">
-        <option value="">--Please choose an option--</option>
-        <option value="id">ID</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="view_number">View Number</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="vote_number">Vote Number</option>
-        <option value="title">Title</option>
-        <option value="message">Message</option>
-    </select>
+        <select name="ordering" id="ordering">
+            <option value="">--Please choose an option--</option>
+            <option value="id">ID</option>
+            <option value="submission_time">Submission Time</option>
+            <option value="view_number">View Number</option>
+            <option value="submission_time">Submission Time</option>
+            <option value="vote_number">Vote Number</option>
+            <option value="title">Title</option>
+            <option value="message">Message</option>
+        </select>
         <input type="submit" value="Order">
     </form>
 {% endblock %}
