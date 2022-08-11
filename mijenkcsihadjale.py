@@ -88,4 +88,9 @@ def get_question_id(cursor, answer_id):
 def add_comment_to_question(cursor, question_id, new_comment):
     cursor.execute(sql.SQL("insert into comment(question_id,message) values (%s, '%s')" % (question_id, new_comment)))
 
+@database_common.connection_handler
+def display_comments(cursor, id):
+    cursor.execute(sql.SQL("select question_id, message, edited_count from comment where question_id=%s" % id))
+    return cursor.fetchall()
+
 

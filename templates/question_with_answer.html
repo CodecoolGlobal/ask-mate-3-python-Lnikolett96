@@ -51,4 +51,32 @@
     </select>
         <input type="submit" value="Order">
     </form>
+    <h2>Comments</h2>
+    {% if comments != [] %}
+
+
+    <table style="text-align: center">
+    <tr >
+        {% for key in comments[0].keys() %}
+            <td>{{ key }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for comment in comments %}
+            <tr>
+            {% for values in comment %}
+                    <td>{{ comment[values] }}</td>
+            {% endfor %}
+                <td><button>DELETE</button></td>
+                <td><button>DOWN</button></td>
+
+            </tr>
+        {% endfor %}
+
+    </tr>
+    </table>
+        {% else %}
+        <h1>Valami nem jó gecc!</h1>
+        <button><a href="/">ok tes, gyerünk vissza</a></button>
+    {% endif %}
 {% endblock %}

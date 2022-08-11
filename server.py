@@ -60,9 +60,11 @@ def delete_page(question_id):
 
 @app.route('/question/<question_id>')
 def display_question_and_answer(question_id):
-    answers = mijenkcsihadjale.link_with_answer(question_id)
 
-    return render_template('question_with_answer.html', answers=answers)
+    answers = mijenkcsihadjale.link_with_answer(question_id)
+    comments = mijenkcsihadjale.display_comments(question_id)
+    print(comments)
+    return render_template('question_with_answer.html', answers=answers, comments=comments)
 
 
 @app.route('/answer/<answer_id>/delete', methods=['GET', 'POST'])
