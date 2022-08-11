@@ -173,7 +173,7 @@ def update_comment(id_num):
     add = False
     comment = functions.get_comment(id_num)
     if request.method == 'POST':
-
+        message = request.form.get('message')
         functions.update_comment(id_num, message)
         return redirect('/list')
     return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
