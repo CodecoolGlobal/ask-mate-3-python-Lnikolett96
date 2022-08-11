@@ -114,5 +114,19 @@ def question_tag(cursor, question_id):
     cursor.execute(sql.SQL("select name from tag inner join question_tag on tag.id = question_tag.tag_id where question_id=%s" % question_id))
     return cursor.fetchall()
 
+@database_common.connection_handler
+def get_new_tag_id(cursor, name):
+    cursor.execute(sql.SQL("SELECT id From tag WHERE name=(%s)" % (name)))
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def add_tag(cursor, question_id, name):
+    cursor.execute(sql.SQL("INSERT INTO tag(name) VALUES (%s)" % (name)))
+    tagid = get_new_tag_id(name)
+    tag_id = tagid[0]['id']
+    cursor.execute(sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" %(question_id, tag_id)))
+
+
 
 
