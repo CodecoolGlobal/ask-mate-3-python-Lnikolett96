@@ -1,12 +1,21 @@
 {% extends "layout.html" %}
 
 {% block page_title %}
-    <h1>Add new comment</h1>
+    {% if add %}
+        <h1>Add new comment</h1>
+    {% else %}
+        <h1>Edit Comment</h1>
 {% endblock %}
 
 {% block content %}
-    <form action="/answer/{{ answer_id }}/new-comment" method="post">
-    <textarea itemtype="text" name="comment" required cols="20" rows="10"></textarea>
-    <button type="submit">Add new comment</button>
-    </form>
+    {% if add %}
+        <form action="/answer/{{ answer_id }}/new-comment" method="post">
+        <textarea type="text" name="comment" required cols="20" rows="10"></textarea>
+        <button type="submit">Add new comment</button>
+        </form>
+    {% else %}
+        <form action="/edit/{{ comment['id'] }}/update-comment" method="post">
+        <textarea type="text" name="comment" required cols="20" rows="10"></textarea>
+        <button type="submit">Update</button>
+        </form>
 {% endblock %}

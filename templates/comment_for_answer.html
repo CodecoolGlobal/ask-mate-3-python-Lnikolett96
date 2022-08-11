@@ -19,8 +19,13 @@
             {% for values in comment %}
                     <td>{{ comment[values] }}</td>
             {% endfor %}
+<<<<<<< Updated upstream
                 <td><button><a href="/comments/{{ comment['id'] }}/delete">Delete</a></button></td>
                 <td><button>DOWN</button></td>
+=======
+                <td><button>DELETE</button></td>
+                <td><button><a href="/edit/{{ comment['id'] }}/update-comment">Edit</a></button></td>
+>>>>>>> Stashed changes
 
             </tr>
         {% endfor %}

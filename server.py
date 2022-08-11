@@ -147,8 +147,9 @@ def add_new_answer(question_id):
 
 @app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
 def add_answer_comment(answer_id):
+    add = True
     if request.method == 'GET':
-        return render_template('add_comment.html', answer_id=answer_id)
+        return render_template('add_comment.html',add=add, answer_id=answer_id)
     elif request.method == 'POST':
         message = request.form.get('comment')
         question_id = mijenkcsihadjale.get_question_id(answer_id)
@@ -157,14 +158,25 @@ def add_answer_comment(answer_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_question_comment(question_id):
+    add = True
     if request.method == 'GET':
 
-        return render_template('add_comment_to_question.html', question_id=question_id)
+        return render_template('add_comment_to_question.html', add=add, question_id=question_id)
 
     elif request.method == 'POST':
         message = request.form.get('comment')
         mijenkcsihadjale.add_comment_to_question(question_id, message)
         return redirect("/")
+
+@app.route('/edit/<id_num>/update-comment', methods=['GET', 'POST'])
+def update_comment(id_num):
+    add = False
+    comment = functions.get_comment(id_num)
+    if request.method == 'POST':
+
+        functions.update_comment(id_num, message)
+        return redirect('/list')
+    return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
 
 
 if __name__ == "__main__":

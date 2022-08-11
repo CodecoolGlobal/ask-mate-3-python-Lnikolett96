@@ -60,6 +60,15 @@ def update_answer(cursor, id_num, message, image='not'):
 
 
 @database_common.connection_handler
+def update_comment(cursor, id, message):
+    query = """
+                UPDATE comment 
+                SET  message = %(message)s, edited_count += 1
+                WHERE id = %(id)s
+            """
+    cursor.execute(query, {'id': id, 'message': message})
+
+@database_common.connection_handler
 def get_question(cursor: RealDictCursor, id) -> list:
     query = """
     SELECT *  FROM question WHERE id = %(id)s
@@ -67,6 +76,13 @@ def get_question(cursor: RealDictCursor, id) -> list:
     cursor.execute(query, {'id': id})
     return cursor.fetchall()
 
+@database_common.connection_handler
+def get_comment(cursor: RealDictCursor, id) -> list:
+    query = """
+        SELECT *  FROM comment WHERE id = %(id)s
+        """
+    cursor.execute(query, {'id': id})
+    return cursor.fetchall()
 
 @database_common.connection_handler
 def get_answer(cursor: RealDictCursor, id) -> list:
@@ -90,3 +106,5 @@ if __name__ == "__main__":
         debug=True,
         port=5000
     )
+
+
