@@ -1,25 +1,25 @@
 {% extends "layout.html" %}
 {% block page_title %}
-    Main Page
+    Answer Page
 {% endblock %}
 {% block content %}
     <h2>Answer</h2>
     <table style="text-align: center">
-    <tr >
-        {% for key in answers[0].keys() %}
-            <td>{{ key }}</td>
-        {% endfor %}
-    </tr>
-    <tr>
-        {% for answer in answers %}
-            <tr>
-            {% for values in answer %}
-                {% if values == 'id' %}
-                    <td>
-                        <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
-                    </td>
-                {% elif values == 'image' %}
-                    <td><img  style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
+        <tr>
+            {% for key in answers[0].keys() %}
+                <td>{{ key }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for answer in answers %}
+                <tr>
+                    {% for values in answer %}
+                        {% if values == 'id' %}
+                            <td>
+                                <a href="/question/{{ answer[values] }}">{{ answer[values] }}</a>
+                            </td>
+                        {% elif values == 'image' %}
+                            <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
 
                 {% else %}
                     <td>{{ answer[values] }}</td>
@@ -32,6 +32,7 @@
                 <td><button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button></td>
                 <td><button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a></button></td>
                 <td><button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a></button></td>
+                <td><button><a href="/update-answer/{{ answer['id'] }}">Edit</a></button></td>
                 <td><button><a href="/answer/{{ answer['id'] }}/new-comment">NEW COMMENT</a></button></td>
             </tr>
         {% endfor %}

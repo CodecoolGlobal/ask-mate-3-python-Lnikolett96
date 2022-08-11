@@ -49,10 +49,30 @@ def update_question(cursor, id_num, title, message, image) -> list:
 
 
 @database_common.connection_handler
+def update_answer(cursor, id_num, message, image='not'):
+    image = save_image("image")
+    query = """
+            UPDATE answer 
+            SET  message = %(message)s, image = %(image)s
+            WHERE id = %(id_num)s
+        """
+    cursor.execute(query, {'id_num': id_num, 'message': message, 'image': image})
+
+
+@database_common.connection_handler
 def get_question(cursor: RealDictCursor, id) -> list:
     query = """
     SELECT *  FROM question WHERE id = %(id)s
     """
+    cursor.execute(query, {'id': id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_answer(cursor: RealDictCursor, id) -> list:
+    query = """
+        SELECT *  FROM answer WHERE id = %(id)s
+        """
     cursor.execute(query, {'id': id})
     return cursor.fetchall()
 

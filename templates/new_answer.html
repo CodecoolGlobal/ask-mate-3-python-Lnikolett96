@@ -2,36 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        {% if add %}
-            <title> Add answer </title>
-        {% else %}
-            <title> Update Answer </title>
-        {% endif %}
+    {% if add %}
+        <title> Add answer </title>
+    {% else %}
+        <title> Update Answer </title>
+    {% endif %}
 </head>
 <body>
-    {% if add %}
-        <h1> {{ title_name }} </h1>
-    {% else %}
-        <h1> {{ title_name }} </h1>
-    {% endif %}
+{% if add %}
+    <h1> {{ title_name }} </h1>
+{% else %}
+    <h1> {{ title_name }} </h1>
+{% endif %}
 
-<form action="/added-answer/{{ question_id }}" enctype="multipart/form-data" method="post">
+{% if add %}
+    <form action="/added-answer/{{ question_id }}" enctype="multipart/form-data" method="post">
+{% else %}
+    <form action="/update-answer/{{ answer_id }}" enctype="multipart/form-data" method="post">
+{% endif %}
+
+{% if add %}
     {% for item in question %}
-    <h3>{{ item.title }}</h3>
+        <h3>{{ item.title }}</h3>
     {% endfor %}
-    <h3> What is your Answer?</h3>
-    {% if add %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
-    {% else %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ data[5] }}"></textarea>
-    {% endif %}
-    <h3>Upload photo</h3>
-    <input type="file" name="image" accept="imagitge/*">
-    {% if add %}
-        <button type="submit">Send Answer</button>
-    {% else %}
-        <button type="submit">Update Answer</button>
-    {% endif %}
+{% else %}
+    {% for item in answer %}
+        <h3>{{ item.title }}</h3>
+    {% endfor %}
+{% endif %}
+
+<h3> What is your Answer?</h3>
+{% if add %}
+    <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
+{% else %}
+    {% for item in answer %}
+        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ item.message }}"></textarea>
+    {% endfor %}
+{% endif %}
+<h3>Upload photo</h3>
+<input type="file" name="image" accept="imagitge/*">
+{% if add %}
+    <button type="submit">Send Answer</button>
+{% else %}
+    <button type="submit">Update Answer</button>
+{% endif %}
 </form>
 </body>
 </html>

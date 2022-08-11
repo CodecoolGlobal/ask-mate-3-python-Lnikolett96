@@ -43,6 +43,20 @@ def get_update_question(id_num):
                            title_name=title_name)
 
 
+@app.route('/update-answer/<id_num>', methods=['GET', 'POST'])
+def edit_answer(id_num):
+    add = False
+    title_name = 'update_answer'
+    answer = functions.get_answer(id_num)
+    if request.method == 'POST':
+        title = request.form.get('title')
+        message = request.form.get('message')
+        image = request.form.get('image')
+        functions.update_answer(id_num, message, image)
+        return redirect('/')
+    return render_template('new_answer.html', answer=answer, answer_id=id_num, add=False, title_name=title_name)
+
+
 @app.route('/delete/<question_id>')
 def delete_page(question_id):
 
@@ -54,8 +68,6 @@ def delete_page(question_id):
         pass
     mijenkcsihadjale.del_question(question_id)
     return redirect('/')
-
-
 
 
 @app.route('/question/<question_id>')
