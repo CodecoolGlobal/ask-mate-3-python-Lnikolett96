@@ -17,17 +17,15 @@
         {% for question in questions %}
             <tr>
                 {% for values in question %}
-                    {% if values == 'id' %}
+                    {% if values == {{ expression }} %}
                         <td>
                             <a href="/question/{{ question[values] }}">{{ question[values] }}</a>
                         </td>
+
                     {% else %}
                         <td>{{ question[values] }}</td>
-
                     {% endif %}
-
                 {% endfor %}
-
             </tr>
         {% endfor %}
     </tr>
