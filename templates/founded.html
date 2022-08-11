@@ -17,12 +17,9 @@
         {% for question in questions %}
             <tr>
                 {% for values in question %}
-                        <td>
-                         {{ question[values] | safe }}
-                        </td>
-                    {% else %}
-                        <td>{{ question[values] | safe }}</td>
-                    {% endif %}
+
+                        <td>{{ question[values] }}</td>
+
                 {% endfor %}
             </tr>
         {% endfor %}
