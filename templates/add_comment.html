@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 
-{% block page_title %}
-    {% if add %}
-        <h1>Add new comment</h1>
-    {% else %}
-        <h1>Edit Comment</h1>
-{% endblock %}
+    {% block page_title %}
+        {% if add %}
+            <h1>Add new comment</h1>
+        {% else %}
+            <h1>Edit Comment</h1>
+        {% endif %}
+    {% endblock %}
 
 {% block content %}
     {% if add %}
@@ -18,4 +19,5 @@
         <textarea type="text" name="comment" required cols="20" rows="10"></textarea>
         <button type="submit">Update</button>
         </form>
+    {% endif %}
 {% endblock %}
