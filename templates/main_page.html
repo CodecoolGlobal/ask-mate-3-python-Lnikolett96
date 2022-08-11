@@ -1,22 +1,25 @@
 {% extends "layout.html" %}
 {% block page_title %}
-    Main Page
+    404 Not Found
 {% endblock %}
 {% block content %}
+<<<<<<< Updated upstream
     <h1>Search</h1>
     <form action="/search" method="post">
         <input type="text" name="search">
         <button type="submit">Search</button>
     </form>
     <table style="text-align: center">
+=======
+    <table class="main-table">
+>>>>>>> Stashed changes
     <tr >
         {% for key in questions[0].keys() %}
             <td>{{ key }}</td>
         {% endfor %}
     </tr>
-    <tr>
         {% for question in questions %}
-            <tr>
+          <tr>
             {% for values in question %}
                 {% if values == 'id' %}
                     <td>
@@ -26,24 +29,24 @@
                     <td><img style="height: 70px" src="{{ question[values]}}" alt="here is a pics"></td>
                 {% else %}
                     <td>{{ question[values] }}</td>
-
                 {% endif %}
-
             {% endfor %}
             <td><button><a href="/delete/{{ question['id'] }}">DELETE</a></button></td>
-
             <td><button><a href="/question/{{ question['id'] }}/vote-up">UP</a></button></td>
             <td><button><a href="/question/{{ question['id'] }}/vote-down">DOWN</a></button></td>
             <td><button><a href="/added-answer/{{ question['id'] }}">Add Answer</a></button></td>
             <td><button><a href="/add-question">Add Question</a></button></td>
             <td><button><a href="/update-question/{{ question['id'] }}">Update Question</a></button></td>
+<<<<<<< Updated upstream
             <td><button><a href="/question/{{ question['id'] }}/new-comment">Add  comment</a></button></td>
 
 
             </tr>
+=======
+          </tr>
+>>>>>>> Stashed changes
         {% endfor %}
 
-    </tr>
     </table>
 
     <form action="/list" method="get">
