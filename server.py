@@ -64,6 +64,7 @@ def display_question_and_answer(question_id):
     answers = mijenkcsihadjale.link_with_answer(question_id)
     comments = mijenkcsihadjale.display_comments(question_id)
 
+
     return render_template('question_with_answer.html', answers=answers, comments=comments)
 
 
@@ -71,6 +72,11 @@ def display_question_and_answer(question_id):
 def dislay_answer_comments(answer_id):
     comments = mijenkcsihadjale.display_comments_in_answer(answer_id)
     return render_template('comment_for_answer.html', comments=comments)
+
+@app.route('/comments/<comment_id>/delete')
+def delete_comment_from_question(comment_id):
+    mijenkcsihadjale.delete_comments_from_question(comment_id)
+    return redirect('/')
 
 
 @app.route('/answer/<answer_id>/delete', methods=['GET', 'POST'])
@@ -142,7 +148,6 @@ def add_question_comment(question_id):
 
     elif request.method == 'POST':
         message = request.form.get('comment')
-        print(question_id)
         mijenkcsihadjale.add_comment_to_question(question_id, message)
         return redirect("/")
 

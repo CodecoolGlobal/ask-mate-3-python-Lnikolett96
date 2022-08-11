@@ -3,6 +3,7 @@
     Main Page
 {% endblock %}
 {% block content %}
+    <h2>Answer</h2>
     <table style="text-align: center">
     <tr >
         {% for key in answers[0].keys() %}
@@ -67,8 +68,8 @@
             {% for values in comment %}
                     <td>{{ comment[values] }}</td>
             {% endfor %}
-                <td><button>DELETE</button></td>
-                <td><button>DOWN</button></td>
+                <td><button><a href="/comments/{{ comment['id'] }}/delete">Delete</a></button></td>
+                <td><button>Edit</button></td>
 
             </tr>
         {% endfor %}

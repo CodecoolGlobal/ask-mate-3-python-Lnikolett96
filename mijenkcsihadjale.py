@@ -90,11 +90,16 @@ def add_comment_to_question(cursor, question_id, new_comment):
 
 @database_common.connection_handler
 def display_comments(cursor, id):
-    cursor.execute(sql.SQL("select question_id, message, edited_count from comment where question_id=%s" % id))
+    cursor.execute(sql.SQL("select id, question_id, message, edited_count from comment where question_id=%s" % id))
     return cursor.fetchall()
 
 
 @database_common.connection_handler
 def display_comments_in_answer(cursor, id):
-    cursor.execute(sql.SQL("SELECT answer_id, message, edited_count FROM comment WHERE answer_id=%s" % id))
+    cursor.execute(sql.SQL("SELECT id, answer_id, message, edited_count FROM comment WHERE answer_id=%s" % id))
     return cursor.fetchall()
+
+@database_common.connection_handler
+def delete_comments_from_question(cursor, comment_id):
+    cursor.execute(sql.SQL("DELETE FROM comment WHERE id=%s" % comment_id))
+
