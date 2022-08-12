@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Founded</title>
+    <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
-<h1>The hits: {{ expression }}</h1>
+<h1 class="neon_blue">The hits: {{ expression }}</h1>
 
-<table style="text-align: center">
+<table class="founded-table">
     <tr>
         {% for key in questions[0].keys() %}
-            <td>{{ key }}</td>
+            <td class="keys">{{ key }}</td>
         {% endfor %}
     </tr>
     <tr>

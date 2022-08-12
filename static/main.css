@@ -91,3 +91,14 @@ a:visited{
     color: aqua;
     transition: color 1s ease;
 }
+.founded-table {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 350px 30px 350px;
+    padding: 10px 10px 10px 10px;
+    border: 3px solid #8d78ff;
+}
+.keys {
+    border-bottom: 1px solid #8d78ff;
+}
