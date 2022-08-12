@@ -3,13 +3,14 @@
     404 Not Found
 {% endblock %}
 {% block content %}
-    <h1>Search</h1>
-    <form action="/search" method="post">
-        <input type="text" name="search">
+
+    <form class="form-search" action="/search" method="post">
+        <h3 class="neon_yellow search-h1">Search</h3>
+        <input class="neon_box" type="text" name="search">
         <button type="submit">Search</button>
     </form>
     <table style="text-align: center">
-    <table class="main-table">
+    <table class="main-table neon_box3">
 
     <tr >
         {% for key in questions[0].keys() %}
@@ -29,14 +30,14 @@
                     <td>{{ question[values] }}</td>
                 {% endif %}
             {% endfor %}
-            <td><button><a href="/delete/{{ question['id'] }}">Delete</a></button></td>
-            <td><button><a href="/question/{{ question['id'] }}/vote-up">Up</a></button></td>
-            <td><button><a href="/question/{{ question['id'] }}/vote-down">Down</a></button></td>
-            <td><button><a href="/added-answer/{{ question['id'] }}">Add Answer</a></button></td>
-            <td><button><a href="/update-question/{{ question['id'] }}">Update Question</a></button></td>
-            <td><button><a href="/question/{{ question['id'] }}/new-comment">Add Comment</a></button></td>
-            <td><button><a href="/question/{{ question['id'] }}/new-tag">Add Tag</a></button></td>
-
+            <td ><button><a href="/delete/{{ question['id'] }}">Delete</a></button>
+                <button><a href="/question/{{ question['id'] }}/vote-up">Up</a></button>
+                <button><a href="/question/{{ question['id'] }}/vote-down">Down</a></button>
+                <button><a href="/added-answer/{{ question['id'] }}">Add Answer</a></button>
+                <button><a href="/update-question/{{ question['id'] }}">Update Question</a></button>
+                <button><a href="/question/{{ question['id'] }}/new-comment">Add Comment</a></button>
+                <button><a href="/question/{{ question['id'] }}/new-tag">Add Tag</a></button>
+            </td>
 
             </tr>
           </tr>
@@ -58,5 +59,6 @@
         <input type="submit" value="Order">
     </form>
     <button><a href="/list">List all</a></button>
-    <td><button id="aquestion"><a href="/add-question">Add Question</a></button></td>
+        <br> <br>
+    <td><button class="neon_box hero-btw""><a href="/add-question">Add Question</a></button></td>
 {% endblock %}

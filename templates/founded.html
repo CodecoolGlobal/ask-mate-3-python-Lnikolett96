@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
-<h1 class="neon_blue">The hits: {{ expression }}</h1>
+<h1 class="neon_blue">The hits: <span style="color: yellow"> {{ expression }} </span> </h1>
 
-<table class="founded-table">
+<table class="founded-table neon_box2">
     <tr>
         {% for key in questions[0].keys() %}
             <td class="keys">{{ key }}</td>
@@ -18,8 +18,11 @@
         {% for question in questions %}
             <tr>
                 {% for values in question %}
-
+                    {% if values == 'image' %}
+                    <td><img style="height: 70px" src="{{ question[values]}}" alt="here is a pics"></td>
+                    {% else %}
                         <td>{{ question[values] }}</td>
+                    {% endif %}
 
                 {% endfor %}
             </tr>
@@ -27,7 +30,7 @@
     </tr>
 </table>
 
-<button><a href="/list">Back to Main Page</a></button>
+<button class="hero-btw neon_box"><a href="/list">Back to Main Page</a></button>
 
 </body>
 </html>
