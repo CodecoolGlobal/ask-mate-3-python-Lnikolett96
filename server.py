@@ -35,7 +35,7 @@ def hello():
     order_by = request.args.get('ordering', 'id')
     questions = mijenkcsihadjale.main_page(order_by)
     if 'loggedin' in session:
-        return render_template('main_page.html', questions=questions, session=session['loggedin'])
+        return render_template('main_page.html', questions=questions, logged=session['loggedin'])
     return render_template('main_page.html', questions=questions)
 
 
