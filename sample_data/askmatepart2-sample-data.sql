@@ -131,4 +131,4 @@ INSERT INTO question_tag VALUES (0, 1);
 INSERT INTO question_tag VALUES (1, 3);
 INSERT INTO question_tag VALUES (2, 3);
 
-INSERT INTO users VALUES (1, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'test@test.com')
+INSERT INTO users VALUES (1, 'test', '$2a$12$dEuP/dkPycUzmZXNzN8j6.Rps5v6xl8oP4WvcuhLCSyItV57s7xx6', 'test@test.com')

@@ -3,12 +3,14 @@
 Users
 {% endblock %}
 {% block content %}
-    <table>
+    <table class="main-table neon_box">
         {% for user in users %}
             <tr>
-            {% u in user %}
+            {% for u in user %}
                 <td>{{ user[u] }}</td>
             {% endfor %}
+        {% endfor %}
         </tr>
     </table>
+    <button><a href="{{ url_for('hello') }}">Back to Home</a> </button>
 {% endblock %}

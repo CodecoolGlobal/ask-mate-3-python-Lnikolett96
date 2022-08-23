@@ -25,7 +25,11 @@ def registration():
 @app.route("/")
 def five_latest_questions():
     five_latest = mijenkcsihadjale.main_page_latest_five()
-    return render_template('main_page.html', questions=five_latest)
+    if 'loggedin' not in session:
+        session['loggedin'] = False
+    return render_template('main_page.html', questions=five_latest, session=session['loggedin'])
+
+
 @app.route("/list")
 def hello():
     order_by = request.args.get('ordering', 'id')
@@ -220,7 +224,8 @@ def login():
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
-                return redirect(url_for('list'))
+
+                return redirect(url_for('hello'))
             else:
                 flash('Incorrect: username / password')
         else:

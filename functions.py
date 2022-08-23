@@ -104,7 +104,7 @@ def search_question(cursor: RealDictCursor, search) -> list:
 @database_common.connection_handler
 def get_users(cursor: RealDictCursor) -> list:
     query = """
-        SELECT * FROM users;
+        SELECT id, username, email FROM users;
         """
     cursor.execute(query)
     return cursor.fetchall()
