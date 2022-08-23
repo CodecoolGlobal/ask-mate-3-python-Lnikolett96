@@ -10,7 +10,10 @@ app.secret_key = "secret"
 
 @app.route("/registration", methods = ['GET', 'POST'])
 def registration():
-    return render_template('registration.html')
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template('registration.html')
 
 
 

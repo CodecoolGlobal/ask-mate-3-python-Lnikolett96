@@ -5,6 +5,16 @@ html {
     font-size: 18px;
 }
 
+.form > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form > button {
+    margin: 1rem;
+}
+
 .neon_yellow {
         animation: neontextAnim2 2s alternate-reverse infinite;
         color: #fffe1f;  /* red színnel jobban látszik a nevünk */
