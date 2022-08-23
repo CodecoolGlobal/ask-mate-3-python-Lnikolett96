@@ -3,7 +3,7 @@
     404 Not Found
 {% endblock %}
 {% block content %}
-
+    <p>You are logged in as {{ session['username'] }}</p>
     <a href="/registration"><button>Sign Up</button></a>
     <button><a href="{{ url_for('login') }}">Login</a></button>
 
