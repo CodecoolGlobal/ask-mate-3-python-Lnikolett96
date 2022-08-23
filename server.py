@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, ses
 import functions
 import mijenkcsihadjale
 import os
-import password
+import hash_password
 
 
 app = Flask(__name__)
@@ -202,7 +202,7 @@ def login():
         account = functions.check_exist_user_by_username(username)
         if account:
             password_rs = account['user_password']
-            if password.verify_password(password, password_rs):
+            if hash_password.verify_password(password, password_rs):
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
