@@ -101,6 +101,25 @@ def search_question(cursor: RealDictCursor, search) -> list:
     return cursor.fetchall()
 
 
+@database_common.connection_handler
+def get_users(cursor: RealDictCursor) -> list:
+    query = """
+        SELECT * FROM users;
+        """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def check_exist_user_by_username(cursor, username) -> list:
+    query = """     
+    SELECT * FROM users 
+    WHERE username = %(username)s     
+    """
+    cursor.execute(query, {'username': username})
+    return cursor.fetchone()
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,
