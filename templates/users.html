@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block page_title %}
+Users
+{% endblock %}
+{% block content %}
+    <table>
+        {% for user in users %}
+            <tr>
+            {% u in user %}
+                <td>{{ user[u] }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

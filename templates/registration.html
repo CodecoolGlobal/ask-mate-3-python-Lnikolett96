@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block page_title %}
+    Registration
+
+{% endblock %}
+{% block content %}
+    <div class="form">
+        <h1><strong>SignUp!</strong></h1>
+        <hr>
+        <form action="/registration" method="post">
+            <label for="Username">Username:</label>
+                <input type="text" name="Username" id="Username">
+            <label for="E-mail">E-mail:</label>
+                <input type="email" name="email" id="E-mail">
+            <label for="Password">Password:</label>
+                <input type="password" name="Password" id="Password">
+            <button type="submit">Save!</button>
+
+
+        </form>
+    </div>
+{% endblock %}

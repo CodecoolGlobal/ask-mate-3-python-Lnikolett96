@@ -6,6 +6,15 @@ import hash_password
 
 
 app = Flask(__name__)
+app.secret_key = "secret"
+
+@app.route("/registration", methods = ['GET', 'POST'])
+def registration():
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template('registration.html')
+
 
 
 @app.route("/")
@@ -183,7 +192,7 @@ def update_comment(id_num):
     return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
 
 
-@app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
+@app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
 def add_tag(question_id):
     if request.method == 'GET':
         all_tag = mijenkcsihadjale.get_all_tag()
@@ -193,7 +202,7 @@ def add_tag(question_id):
         mijenkcsihadjale.add_tag(question_id, tag)
 
 
-@app.route('/login/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
@@ -206,9 +215,7 @@ def login():
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
-                session['question_index'] = 0
-                session['answers'] = []
-                return redirect(url_for('home'))
+                return redirect(url_for('list'))
             else:
                 flash('Incorrect: username / password')
         else:
@@ -216,7 +223,10 @@ def login():
     return render_template('login.html')
 
 
-
+@app.route('/all_users/', methods=['GET', 'POST'])
+def get_all_users():
+    users = functions.get_users()
+    return render_template('users.html', users=users)
 
 
 

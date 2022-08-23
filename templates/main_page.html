@@ -3,6 +3,8 @@
     404 Not Found
 {% endblock %}
 {% block content %}
+    <a href="/registration"><button>SignUp</button></a>
+
     <button><a href="{{ url_for('login') }}">Login</a></button>
     <form class="form-search" action="/search" method="post">
         <h3 class="neon_yellow search-h1">Search</h3>
