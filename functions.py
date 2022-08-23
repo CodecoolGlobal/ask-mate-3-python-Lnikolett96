@@ -22,7 +22,7 @@ def add_question(cursor, title, message, image, user_id) -> list:
 def add_answer(cursor, question_id, message, image, user_id) -> list:
     image = save_image("image")
     query = """
-    INSERT INTO answer(question_id, message, image)
+    INSERT INTO answer(question_id, message, image, user_id)
     VALUES (%(question_id)s, %(message)s, %(image)s, %(user_id)s)
     """
     cursor.execute(query, {'question_id': question_id, 'message': message, 'image': image, 'user_id':user_id})
