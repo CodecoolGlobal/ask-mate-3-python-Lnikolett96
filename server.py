@@ -50,7 +50,8 @@ def add_question():
             title = request.form.get('title')
             message = request.form.get('message')
             image = request.form.get('image')
-            functions.add_question(title, message, image)
+            user_id = session['id']
+            functions.add_question(title, message, image, user_id)
             # functions_data_manager, database_common
             return redirect('/')
     return render_template('add.html', add=add, title_name=title, logged=session['loggedin'])
