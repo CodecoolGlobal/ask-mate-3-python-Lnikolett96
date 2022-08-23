@@ -174,9 +174,11 @@ def add_new_answer(question_id):
         if request.method == 'POST':
             message = request.form.get('message')
             image = request.form.get('image')
-            functions.add_answer(question_id, message, image)
+            user_id = session['id']
+            functions.add_answer(question_id, message, image, user_id)
             return redirect('/')
     return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question, logged=session['loggedin'])
+
 
 
 @app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
