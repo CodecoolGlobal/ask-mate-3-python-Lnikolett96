@@ -16,6 +16,14 @@ ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_ques
 ALTER TABLE IF EXISTS ONLY public.tag DROP CONSTRAINT IF EXISTS pk_tag_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_tag_id CASCADE;
 
+DROP table if exists public.users;
+CREATE TABLE users (
+    id serial primary key not null,
+    username varchar(30) not null ,
+    user_password varchar(128) not null,
+    email varchar(50) not null
+);
+
 DROP TABLE IF EXISTS public.question;
 CREATE TABLE question (
     id serial NOT NULL,
