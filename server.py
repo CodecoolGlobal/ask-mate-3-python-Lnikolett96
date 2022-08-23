@@ -190,8 +190,10 @@ def add_answer_comment(answer_id):
             return render_template('add_comment.html',add=add, answer_id=answer_id, logged=session['loggedin'])
         elif request.method == 'POST':
             message = request.form.get('comment')
+            user_id = session['id']
+
             question_id = mijenkcsihadjale.get_question_id(answer_id)
-            mijenkcsihadjale.add_comment_to_answer(answer_id, message)
+            mijenkcsihadjale.add_comment_to_answer(answer_id, message, user_id)
             return redirect(f"/question/{question_id[0]['question_id']}")
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
@@ -204,7 +206,8 @@ def add_question_comment(question_id):
 
         elif request.method == 'POST':
             message = request.form.get('comment')
-            mijenkcsihadjale.add_comment_to_question(question_id, message)
+            user_id = session['id']
+            mijenkcsihadjale.add_comment_to_question(question_id, message, user_id)
             return redirect("/")
 
 @app.route('/edit/<id_num>/update-comment', methods=['GET', 'POST'])

@@ -76,8 +76,8 @@ def answer_vote_up(cursor, id):
     cursor.execute(query, {'id':id})
 
 @database_common.connection_handler
-def add_comment_to_answer(cursor, answer_id, new_message):
-    cursor.execute(sql.SQL("insert into comment(answer_id,message) values (%s, '%s')" % (answer_id,new_message)))
+def add_comment_to_answer(cursor, answer_id, new_message, user_id):
+    cursor.execute(sql.SQL("insert into comment(answer_id,message, user_id) values (%s, '%s', %s)" % (answer_id,new_message, user_id)))
 
 @database_common.connection_handler
 def get_question_id(cursor, answer_id):
@@ -85,18 +85,18 @@ def get_question_id(cursor, answer_id):
     return cursor.fetchall()
 
 @database_common.connection_handler
-def add_comment_to_question(cursor, question_id, new_comment):
-    cursor.execute(sql.SQL("insert into comment(question_id,message) values (%s, '%s')" % (question_id, new_comment)))
+def add_comment_to_question(cursor, question_id, new_comment, user_id):
+    cursor.execute(sql.SQL("insert into comment(question_id,message, user_id) values (%s, '%s', %s)" % (question_id, new_comment, user_id)))
 
 @database_common.connection_handler
 def display_comments(cursor, id):
-    cursor.execute(sql.SQL("select id, question_id, message, edited_count from comment where question_id=%s" % id))
+    cursor.execute(sql.SQL("select id, question_id, message, edited_count, user_id from comment where question_id=%s" % id))
     return cursor.fetchall()
 
 
 @database_common.connection_handler
 def display_comments_in_answer(cursor, id):
-    cursor.execute(sql.SQL("SELECT id, answer_id, message, edited_count FROM comment WHERE answer_id=%s" % id))
+    cursor.execute(sql.SQL("SELECT id, answer_id, message, edited_count, user_id FROM comment WHERE answer_id=%s" % id))
     return cursor.fetchall()
 
 @database_common.connection_handler
