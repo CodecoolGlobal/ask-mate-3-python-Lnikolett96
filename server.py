@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, ses
 import functions
 import mijenkcsihadjale
 import os
-import password
+import hash_password
 
 
 app = Flask(__name__)
@@ -192,7 +192,7 @@ def update_comment(id_num):
     return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
 
 
-@app.route('/question/<question_id>/new-tag', methods=['GET','POST'])
+@app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
 def add_tag(question_id):
     if request.method == 'GET':
         all_tag = mijenkcsihadjale.get_all_tag()
@@ -202,7 +202,7 @@ def add_tag(question_id):
         mijenkcsihadjale.add_tag(question_id, tag)
 
 
-@app.route('/login/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
@@ -211,13 +211,11 @@ def login():
         account = functions.check_exist_user_by_username(username)
         if account:
             password_rs = account['user_password']
-            if password.verify_password(password, password_rs):
+            if hash_password.verify_password(password, password_rs):
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
-                session['question_index'] = 0
-                session['answers'] = []
-                return redirect(url_for('home'))
+                return redirect(url_for('list'))
             else:
                 flash('Incorrect: username / password')
         else:
@@ -225,7 +223,10 @@ def login():
     return render_template('login.html')
 
 
-
+@app.route('/all_users/', methods=['GET', 'POST'])
+def get_all_users():
+    users = functions.get_users()
+    return render_template('users.html', users=users)
 
 
 
