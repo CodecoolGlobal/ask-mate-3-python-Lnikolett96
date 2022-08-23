@@ -27,7 +27,7 @@ def five_latest_questions():
     five_latest = mijenkcsihadjale.main_page_latest_five()
     if 'loggedin' not in session:
         session['loggedin'] = False
-    return render_template('main_page.html', questions=five_latest, session=session['loggedin'])
+    return render_template('main_page.html', questions=five_latest)
 
 
 @app.route("/list")
@@ -49,7 +49,8 @@ def add_question():
         title = request.form.get('title')
         message = request.form.get('message')
         image = request.form.get('image')
-        functions.add_question(title, message, image)
+        user_id = session['id']
+        functions.add_question(title, message, image, user_id)
         # functions_data_manager, database_common
         return redirect('/')
     return render_template('add.html', add=add, title_name=title)
