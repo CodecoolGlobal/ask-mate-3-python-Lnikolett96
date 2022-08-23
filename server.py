@@ -4,6 +4,12 @@ import mijenkcsihadjale
 import os
 
 app = Flask(__name__)
+app.secret_key = "secret"
+
+@app.route("/registration", methods = ['GET', 'POST'])
+def registration():
+    return render_template('registration.html')
+
 
 
 @app.route("/")
