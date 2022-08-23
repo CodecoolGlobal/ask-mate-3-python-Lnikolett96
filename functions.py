@@ -9,13 +9,13 @@ app = Flask(__name__)
 
 
 @database_common.connection_handler
-def add_question(cursor, title, message, image) -> list:
+def add_question(cursor, title, message, image, user_id) -> list:
     image = save_image("image")
     query = """
-    INSERT INTO question(title, message, image)
-    VALUES (%(title)s, %(message)s, %(image)s) 
+    INSERT INTO question(title, message, image,user_id)
+    VALUES (%(title)s, %(message)s, %(image)s, %(user_id)s) 
     """
-    cursor.execute(query, {'title': title, 'message': message, 'image': image})
+    cursor.execute(query, {'title': title, 'message': message, 'image': image, 'user_id':user_id})
 
 
 @database_common.connection_handler
