@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, ses
 import functions
 import mijenkcsihadjale
 import os
-from password import hash_password
+from hash_password import hash_password, verify_password
 
 
 
@@ -34,7 +34,11 @@ def five_latest_questions():
 def hello():
     order_by = request.args.get('ordering', 'id')
     questions = mijenkcsihadjale.main_page(order_by)
+    if 'loggedin' in session:
+        return render_template('main_page.html', questions=questions, session=session['loggedin'])
     return render_template('main_page.html', questions=questions)
+
+
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -220,7 +224,7 @@ def login():
         account = functions.check_exist_user_by_username(username)
         if account:
             password_rs = account['user_password']
-            if hash_password.verify_password(password, password_rs):
+            if verify_password(password, password_rs):
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']

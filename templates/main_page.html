@@ -3,11 +3,14 @@
     404 Not Found
 {% endblock %}
 {% block content %}
-    <a href="/registration"><button>SignUp</button></a>
+
+    <a href="/registration"><button>Sign Up</button></a>
     <button><a href="{{ url_for('login') }}">Login</a></button>
-    {% if session['loggedin'] %}
+
+    {% if 'loggedin' in session %}
         <button><a href="{{ url_for('get_all_users') }}"> Users </a></button>
     {% endif %}
+
     <form class="form-search" action="/search" method="post">
         <h3 class="neon_yellow search-h1">Search</h3>
         <input class="neon_box" type="text" name="search">
@@ -34,6 +37,7 @@
                     <td>{{ question[values] }}</td>
                 {% endif %}
             {% endfor %}
+           {% if 'loggedin' in session %}
             <td ><button><a href="/delete/{{ question['id'] }}">Delete</a></button>
                 <button><a href="/question/{{ question['id'] }}/vote-up">Up</a></button>
                 <button><a href="/question/{{ question['id'] }}/vote-down">Down</a></button>
@@ -42,6 +46,7 @@
                 <button><a href="/question/{{ question['id'] }}/new-comment">Add Comment</a></button>
                 <button><a href="/question/{{ question['id'] }}/new-tag">Add Tag</a></button>
             </td>
+          {% endif %}
 
             </tr>
           </tr>
@@ -50,19 +55,21 @@
     </table>
 
     <form action="/list" method="get">
-    <select name="ordering" id="ordering">
+        <select name="ordering" id="ordering">
 
-        <option value="id">ID</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="view_number">View Number</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="vote_number">Vote Number</option>
-        <option value="title">Title</option>
-        <option value="message">Message</option>
-    </select>
+            <option value="id">ID</option>
+            <option value="submission_time">Submission Time</option>
+            <option value="view_number">View Number</option>
+            <option value="submission_time">Submission Time</option>
+            <option value="vote_number">Vote Number</option>
+            <option value="title">Title</option>
+            <option value="message">Message</option>
+        </select>
         <input type="submit" value="Order">
     </form>
     <button><a href="/list">List all</a></button>
         <br> <br>
-    <td><button class="neon_box hero-btw""><a href="/add-question">Add Question</a></button></td>
+    {% if 'loggedin' in session %}
+        <td><button class="neon_box hero-btw"> <a href="/add-question">Add Question</a> </button> </td>
+    {% endif %}
 {% endblock %}
