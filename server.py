@@ -25,9 +25,9 @@ def registration():
 @app.route("/")
 def five_latest_questions():
     five_latest = mijenkcsihadjale.main_page_latest_five()
-    if 'loggedin' not in session:
-        session['loggedin'] = False
-    return render_template('main_page.html', questions=five_latest, session=session['loggedin'])
+    if 'loggedin' in session:
+        return render_template('main_page.html', questions=five_latest, logged=session['loggedin'])
+    return render_template('main_page.html', questions=five_latest)
 
 
 @app.route("/list")
@@ -45,29 +45,31 @@ def hello():
 def add_question():
     add = True
     title = 'Add Question'
-    if request.method == 'POST':
-        title = request.form.get('title')
-        message = request.form.get('message')
-        image = request.form.get('image')
-        functions.add_question(title, message, image)
-        # functions_data_manager, database_common
-        return redirect('/')
-    return render_template('add.html', add=add, title_name=title)
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            title = request.form.get('title')
+            message = request.form.get('message')
+            image = request.form.get('image')
+            functions.add_question(title, message, image)
+            # functions_data_manager, database_common
+            return redirect('/')
+    return render_template('add.html', add=add, title_name=title, logged=session['loggedin'])
 
 
 @app.route('/update-question/<id_num>', methods=['GET', 'POST'])
 def get_update_question(id_num):
     title_name = 'Update Question'
     question = functions.get_question(id_num)
-    if request.method == 'POST':
-        title = request.form.get('title')
-        message = request.form.get('message')
-        image = request.form.get('image')
-        functions.update_question(id_num, title, message, image)
-        return redirect('/')
-    return render_template('add.html', question=question, id_num=id_num,
-                           add=False,
-                           title_name=title_name)
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            title = request.form.get('title')
+            message = request.form.get('message')
+            image = request.form.get('image')
+            functions.update_question(id_num, title, message, image)
+            return redirect('/')
+        return render_template('add.html', question=question, id_num=id_num,
+                               add=False,
+                               title_name=title_name, logged=session['loggedin'])
 
 
 @app.route('/update-answer/<id_num>', methods=['GET', 'POST'])
@@ -75,26 +77,30 @@ def edit_answer(id_num):
     add = False
     title_name = 'update_answer'
     answer = functions.get_answer(id_num)
-    if request.method == 'POST':
-        title = request.form.get('title')
-        message = request.form.get('message')
-        image = request.form.get('image')
-        functions.update_answer(id_num, message, image)
-        return redirect('/')
-    return render_template('new_answer.html', answer=answer, answer_id=id_num, add=False, title_name=title_name)
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            title = request.form.get('title')
+            message = request.form.get('message')
+            image = request.form.get('image')
+            functions.update_answer(id_num, message, image)
+            return redirect('/')
+    return render_template('new_answer.html', answer=answer, answer_id=id_num,
+                           add=False, title_name=title_name,
+                           logged=session['loggedin']
+    )
 
 
 @app.route('/delete/<question_id>')
 def delete_page(question_id):
-
-    img_src = mijenkcsihadjale.get_img_src(question_id)
-    try:
-        if img_src[0]['image']:
-            os.remove(img_src[0]['image'])
-    except FileNotFoundError:
-        pass
-    mijenkcsihadjale.del_question(question_id)
-    return redirect('/')
+    if 'loggedin' in session:
+        img_src = mijenkcsihadjale.get_img_src(question_id)
+        try:
+            if img_src[0]['image']:
+                os.remove(img_src[0]['image'])
+        except FileNotFoundError:
+            pass
+        mijenkcsihadjale.del_question(question_id)
+        return redirect('/')
 
 
 @app.route('/question/<question_id>')
@@ -150,7 +156,7 @@ def answer_vote_up(answer_id, question_id):
     mijenkcsihadjale.answer_vote_up(answer_id)
     return redirect(f"/question/{question_id}")
 
-@app.route('/')
+
 @app.route('/search', methods=['POST'])
 def search_question():
     expression = request.form.get('search')
@@ -158,61 +164,67 @@ def search_question():
     return render_template('founded.html', questions=founded, expression=expression)
 
 
+
 @app.route('/added-answer/<question_id>', methods=['GET', 'POST'])
 def add_new_answer(question_id):
     add = True
     title = 'Add Answer'
     question = functions.get_question(question_id)
-    if request.method == 'POST':
-        message = request.form.get('message')
-        image = request.form.get('image')
-        functions.add_answer(question_id, message, image)
-        return redirect('/')
-    return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question)
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            message = request.form.get('message')
+            image = request.form.get('image')
+            functions.add_answer(question_id, message, image)
+            return redirect('/')
+    return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question, logged=session['loggedin'])
 
 
 @app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
 def add_answer_comment(answer_id):
     add = True
-    if request.method == 'GET':
-        return render_template('add_comment.html',add=add, answer_id=answer_id)
-    elif request.method == 'POST':
-        message = request.form.get('comment')
-        question_id = mijenkcsihadjale.get_question_id(answer_id)
-        mijenkcsihadjale.add_comment_to_answer(answer_id, message)
-        return redirect(f"/question/{question_id[0]['question_id']}")
+    if 'loggedin' in session:
+        if request.method == 'GET':
+            return render_template('add_comment.html',add=add, answer_id=answer_id, logged=session['loggedin'])
+        elif request.method == 'POST':
+            message = request.form.get('comment')
+            question_id = mijenkcsihadjale.get_question_id(answer_id)
+            mijenkcsihadjale.add_comment_to_answer(answer_id, message)
+            return redirect(f"/question/{question_id[0]['question_id']}")
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_question_comment(question_id):
     add = True
-    if request.method == 'GET':
+    if 'loggedin' in session:
+        if request.method == 'GET':
 
-        return render_template('add_comment_to_question.html', add=add, question_id=question_id)
+            return render_template('add_comment_to_question.html', add=add, question_id=question_id, logged=session['loggedin'])
 
-    elif request.method == 'POST':
-        message = request.form.get('comment')
-        mijenkcsihadjale.add_comment_to_question(question_id, message)
-        return redirect("/")
+        elif request.method == 'POST':
+            message = request.form.get('comment')
+            mijenkcsihadjale.add_comment_to_question(question_id, message)
+            return redirect("/")
 
 @app.route('/edit/<id_num>/update-comment', methods=['GET', 'POST'])
 def update_comment(id_num):
     add = False
     comment = functions.get_comment(id_num)
-    if request.method == 'POST':
-        message = request.form.get('message')
-        functions.update_comment(id_num, message)
-        return redirect('/list')
-    return render_template('add_comment.html', add=add, comment=comment, id_num=id_num)
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            message = request.form.get('message')
+            functions.update_comment(id_num, message)
+            return redirect('/list')
+        return render_template('add_comment.html', add=add, comment=comment, id_num=id_num, logged=session['loggedin'])
 
 
 @app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
 def add_tag(question_id):
-    if request.method == 'GET':
-        all_tag = mijenkcsihadjale.get_all_tag()
-        return render_template('add_tag.html', question_id = question_id, all_tag=all_tag)
-    elif request.method == 'POST':
-        tag = request.form.get('Tags')
-        mijenkcsihadjale.add_tag(question_id, tag)
+    if 'loggedin' in session:
+        if request.method == 'GET':
+            all_tag = mijenkcsihadjale.get_all_tag()
+            return render_template('add_tag.html', question_id = question_id, all_tag=all_tag, logged=session['loggedin'])
+        elif request.method == 'POST':
+            tag = request.form.get('Tags')
+            mijenkcsihadjale.add_tag(question_id, tag)
 
 
 @app.route('/login', methods=['POST', 'GET'])

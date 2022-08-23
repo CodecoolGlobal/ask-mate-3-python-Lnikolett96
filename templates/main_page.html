@@ -7,7 +7,7 @@
     <a href="/registration"><button>Sign Up</button></a>
     <button><a href="{{ url_for('login') }}">Login</a></button>
 
-    {% if session['loggedin'] %}
+    {% if logged %}
         <button><a href="{{ url_for('get_all_users') }}"> Users </a></button>
     {% endif %}
 
@@ -37,7 +37,7 @@
                     <td>{{ question[values] }}</td>
                 {% endif %}
             {% endfor %}
-           {% if session['loggedin'] %}
+           {% if logged %}
             <td ><button><a href="/delete/{{ question['id'] }}">Delete</a></button>
                 <button><a href="/question/{{ question['id'] }}/vote-up">Up</a></button>
                 <button><a href="/question/{{ question['id'] }}/vote-down">Down</a></button>
