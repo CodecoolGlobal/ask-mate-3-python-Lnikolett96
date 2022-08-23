@@ -125,8 +125,8 @@ def get_all_tag(cursor):
     return cursor.fetchall()
 
 @database_common.connection_handler
-def registration(cursor, user, password, email):
-    cursor.execute(sql.SQL("INSERT INTO users(username, user_password, email) VALUES (%(user)s, %(password)s), %(email)s", {'user':user, 'password':password, 'email':email}))
+def register(cursor, user, password, email):
+    cursor.execute('INSERT INTO users(username, user_password, email) VALUES (%(user)s, %(password)s, %(email)s)', {'user':user, 'password':password, 'email':email})
 
 
 @database_common.connection_handler

@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, ses
 import functions
 import mijenkcsihadjale
 import os
-import password
+from password import hash_password
 
 
 app = Flask(__name__)
@@ -11,7 +11,11 @@ app.secret_key = "secret"
 @app.route("/registration", methods = ['GET', 'POST'])
 def registration():
     if request.method == 'POST':
-        pass
+        username = request.form.get('Username')
+        email = request.form.get('email')
+        password = hash_password(request.form.get('Password'))
+        mijenkcsihadjale.register(username, password, email)
+        return redirect(url_for('five_latest_questions'))
     else:
         return render_template('registration.html')
 
