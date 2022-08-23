@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 import functions
 import mijenkcsihadjale
 import os
@@ -189,6 +189,32 @@ def add_tag(question_id):
     elif request.method == 'POST':
         tag = request.form.get('Tags')
         mijenkcsihadjale.add_tag(question_id, tag)
+
+
+@app.route('/login/', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+
+        account = functions.check_exist_user_by_username(username)
+        if account:
+            password_rs = account['user_password']
+            if check_password_hash(password_rs, password):
+                session['loggedin'] = True
+                session['id'] = account['id']
+                session['username'] = account['username']
+                session['question_index'] = 0
+                session['answers'] = []
+                return redirect(url_for('home'))
+            else:
+                flash('Incorrect: username / password')
+        else:
+            flash('Incorrect: username / password')
+    return render_template('login.html')
+
+
+
 
 
 
