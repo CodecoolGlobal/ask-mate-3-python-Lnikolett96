@@ -122,16 +122,11 @@ def display_question_and_answer(question_id):
     for row in user_for_this_question:
         user_id = row['user_id']
     if "loggedin" in session:
-        are_accepted = functions.check_if_accepted(question_id)
-        for row in are_accepted:
-            are_accepted = row['accepted']
-        if are_accepted == 'true':
-            are_accepted = True
         if session["id"] == user_id:
             session["accept_value"] = True
 
             return render_template('question_with_answer.html', answers=answers, comments=comments,
-                           tag=tag, accept_answer=session["accept_value"], are_accepted=are_accepted)
+                           tag=tag, accept_answer=session["accept_value"])
     return render_template('question_with_answer.html', answers=answers, comments=comments,
                            tag=tag)
 

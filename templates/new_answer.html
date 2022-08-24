@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "layout.html" %}
+{% block page_title %}
     {% if add %}
-        <title> Add answer </title>
+         Add answer
     {% else %}
-        <title> Update Answer </title>
+         Update Answer
     {% endif %}
-</head>
-<body>
-{% if add %}
-    <h1> {{ title_name }} </h1>
-{% else %}
-    <h1> {{ title_name }} </h1>
-{% endif %}
+{% endblock %}
+
+{% block content %}
 
 {% if add %}
     <form action="/added-answer/{{ question_id }}" enctype="multipart/form-data" method="post">
@@ -46,6 +40,4 @@
 {% else %}
     <button type="submit">Update Answer</button>
 {% endif %}
-</form>
-</body>
-</html>
+{% endblock %}
