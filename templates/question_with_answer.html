@@ -29,28 +29,24 @@
                                 <td>
                                     <a href="/answer/{{ answer[key] }}">{{ answer[key] }}</a>
                                 </td>
-<<<<<<< Updated upstream
+                            {% elif key == 'image' %}
+                                <td><img style="height: 70px" src="{{ answer[key] }}" alt="nemtom"></td>
                             {% elif key == 'image' %}
                                 <td><img style="height: 70px" src="{{ answer[key] }}" alt="nemtom"></td>
                             {% elif key == 'accepted' %}
                                 {% if answer[key] %}
-=======
-                            {% elif values == 'image' %}
-                                <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
-                            {% elif values == 'accepted' %}
-                                {% if answer[values] %}
->>>>>>> Stashed changes
                                     <td>
                                         <img src="/static/images/facebook-like-16.png" alt="like">
                                     </td>
 
                                 {% else %}
                                     <td>
-                                        <button> <a href="/add_accept/{{ answer['id'] }}">Accept</a> </button>
+                                        <button><a href="/add_accept/{{ answer['id'] }}">Accept</a></button>
                                     </td>
                                 {% endif %}
                             {% else %}
                                 <td>{{ answer[key] }}</td>
+
                             {% endif %}
 
                         {% endfor %}
