@@ -47,7 +47,8 @@ CREATE TABLE answer (
     question_id integer,
     message text,
     user_id INTEGER,
-    image text
+    image text,
+    accepted text default NULL
 );
 
 DROP TABLE IF EXISTS public.comment;
@@ -135,4 +136,4 @@ SELECT pg_catalog.setval('tag_id_seq', 3, true);
 INSERT INTO question_tag VALUES (0, 1);
 INSERT INTO question_tag VALUES (2, 3);
 
-INSERT INTO users VALUES (1, 'test', '$2a$12$dEuP/dkPycUzmZXNzN8j6.Rps5v6xl8oP4WvcuhLCSyItV57s7xx6', 'test@test.com')
+INSERT INTO users VALUES (0, 'test', '$2a$12$dEuP/dkPycUzmZXNzN8j6.Rps5v6xl8oP4WvcuhLCSyItV57s7xx6', 'test@test.com')

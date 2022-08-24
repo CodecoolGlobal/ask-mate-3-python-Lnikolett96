@@ -31,16 +31,25 @@
                                 </td>
                             {% elif values == 'image' %}
                                 <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
+                            {% elif values == 'accepted' %}
+                                {% if are_accepted %}
+                                    <td>
+                                        <img src="/static/images/facebook-like-16.png" alt="like">
+                                    </td>
 
+                                {% else %}
+                                    <td>
+                                        <button> <a href="/add_accept/{{ answer['id'] }}">Accept</a> </button>
+                                    </td>
+                                {% endif %}
                             {% else %}
                                 <td>{{ answer[values] }}</td>
                             {% endif %}
+
                         {% endfor %}
-                        {% if accept_answer %}
-                            <td>
-                                <button id="accept" onclick="accept()">Accept</button>
-                            </td>
-                        {% endif %}
+
+
+
                         <td>
                             <button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button>
                         </td>
