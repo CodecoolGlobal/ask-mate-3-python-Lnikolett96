@@ -125,8 +125,18 @@ def get_all_tag(cursor):
     return cursor.fetchall()
 
 @database_common.connection_handler
-def user_page(cursor, user_id):
+def user_page_answer(cursor, user_id):
     cursor.execute("SELECT * FROM answer WHERE user_id = %(user_id)s", {'user_id': user_id})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def user_page_question(cursor, user_id):
+    cursor.execute("SELECT * FROM question WHERE user_id = %(user_id)s", {'user_id': user_id})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def user_page_comment(cursor, user_id):
+    cursor.execute("SELECT * FROM comment WHERE user_id = %(user_id)s", {'user_id': user_id})
     return cursor.fetchall()
 
 

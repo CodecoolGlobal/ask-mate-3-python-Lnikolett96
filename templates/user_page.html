@@ -12,10 +12,10 @@
                 User Id: {{ session['id'] }}
             </li>
             <li>
-                User Name: {{ session['loggedin'] }}
+                User Name: {{ session['username'] }}
             </li>
             <li>
-                Registration Date: {{ registration_date }}
+                Registration Date: {{ session['reg_date'] }}
             </li>
             <li>
                 Number of asked questions: {{ asked_questions }}
@@ -35,7 +35,100 @@
 
     </div>
     <div>
+    <h1>Your Questions:</h1>
+    {% if questions == [] %}
+        <p>There is no Questions YET</p>
 
+
+    {% else %}
+    <table>
+         <tr>
+        {% for key in questions[0].keys() %}
+            <td>{{ key }}</td>
+        {% endfor %}
+    </tr>
+        {% for question in questions %}
+          <tr>
+            {% for values in question %}
+                {% if values == 'id' %}
+                    <td>
+                        <a id="question_id" href="/question/{{ question[values] }}">{{ question[values] }}</a>
+                    </td>
+                {% elif values == 'image' %}
+                    <td><img style="height: 70px" src="{{ question[values]}}" alt="here is a pics"></td>
+                {% else %}
+                    <td>{{ question[values] }}</td>
+                {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    </div>
+
+    <div>
+    <h1>Your Answers:</h1>
+    {% if answers == [] %}
+        <p>There is no Answers YET</p>
+    {% else %}
+    <table style="text-align: center">
+        <tr>
+            {% for key in answers[0].keys() %}
+                <td>{{ key }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for answer in answers %}
+                <tr>
+                    {% for values in answer %}
+                        {% if values == 'id' %}
+                            <td>
+                                <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
+                            </td>
+                        {% elif values == 'image' %}
+                            <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
+
+                {% else %}
+                    <td>{{ answer[values] }}</td>
+
+
+
+                {% endif %}
+
+            {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </tr>
+    </table>
+    {% endif %}
+    </div>
+
+    <div>
+    <h1>Your Comments:</h1>
+    {% if comments == [] %}
+        <p>There is no Comments YET</p>
+
+    {% else %}
+    <table style="text-align: center">
+    <tr >
+        {% for key in comments[0].keys() %}
+            <td>{{ key }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for comment in comments %}
+            <tr>
+            {% for values in comment %}
+                    <td>{{ comment[values] }}</td>
+            {% endfor %}
+
+            </tr>
+        {% endfor %}
+
+    </tr>
+    </table>
+    {% endif %}
     </div>
 
 

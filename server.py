@@ -246,7 +246,7 @@ def login():
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
-
+                session['reg_date'] = account['registration_date']
                 return redirect(url_for('hello'))
             else:
                 flash('Incorrect: username / password')
@@ -259,6 +259,21 @@ def login():
 def get_all_users():
     users = functions.get_users()
     return render_template('users.html', users=users)
+
+@app.route('/user/<user_id>', methods =['GET', 'POST'])
+def user_page(user_id):
+    user_question = mijenkcsihadjale.user_page_question(user_id)
+    user_answer = mijenkcsihadjale.user_page_answer(user_id)
+    user_comment = mijenkcsihadjale.user_page_comment(user_id)
+    num_of_questions = len(user_question)
+    num_of_ans  = len(user_answer)
+    num_of_comments = len(user_comment)
+    return render_template('user_page.html', questions=user_question,
+                               answers=user_answer, comments=user_comment,
+                               asked_questions=num_of_questions,
+                               number_of_answers=num_of_ans,
+                               number_of_comments=num_of_comments)
+
 
 
 
