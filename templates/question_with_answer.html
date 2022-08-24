@@ -8,89 +8,107 @@
         <button><a href="/">Zsa főoldal</a></button>
     {% else %}
 
-    <h2>Answer</h2>
+        <h2>Answer</h2>
         {% if tag != [] %}
 
 
-    <h4>Tags:</h4>
-    <p>{{ tag[0]['name'] }}</p>
+            <h4>Tags:</h4>
+            <p>{{ tag[0]['name'] }}</p>
         {% endif %}
-    <table style="text-align: center">
-        <tr>
-            {% for key in answers[0].keys() %}
-                <td>{{ key }}</td>
-            {% endfor %}
-        </tr>
-        <tr>
-            {% for answer in answers %}
-                <tr>
-                    {% for values in answer %}
-                        {% if values == 'id' %}
-                            <td>
-                                <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
-                            </td>
-                        {% elif values == 'image' %}
-                            <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
-
-                {% else %}
-                    <td>{{ answer[values] }}</td>
-
-
-
-                {% endif %}
-
-            {% endfor %}
-                <td><button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a></button></td>
-                <td><button><a href="/update-answer/{{ answer['id'] }}">Edit</a></button></td>
-                <td><button><a href="/answer/{{ answer['id'] }}/new-comment">NEW COMMENT</a></button></td>
-            </tr>
-        {% endfor %}
-
-    </tr>
-    </table>
-
-    <form action="/list" method="get">
-    <select name="ordering" id="ordering">
-        <option value="">--Please choose an option--</option>
-        <option value="id">ID</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="view_number">View Number</option>
-        <option value="submission_time">Submission Time</option>
-        <option value="vote_number">Vote Number</option>
-        <option value="title">Title</option>
-        <option value="message">Message</option>
-    </select>
-        <input type="submit" value="Order">
-    </form>
-    <h2>Comments</h2>
-    {% if comments != [] %}
-
-
-    <table style="text-align: center">
-    <tr >
-        {% for key in comments[0].keys() %}
-            <td>{{ key }}</td>
-        {% endfor %}
-    </tr>
-    <tr>
-        {% for comment in comments %}
+        <table style="text-align: center">
             <tr>
-            {% for values in comment %}
-                    <td>{{ comment[values] }}</td>
-            {% endfor %}
-                <td><button><a href="/comments/{{ comment['id'] }}/delete">Delete</a></button></td>
-                <td><button>Edit</button></td>
+                {% for key in answers[0].keys() %}
+                    <td>{{ key }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for answer in answers %}
+                    <tr>
+                        {% for values in answer %}
+                            {% if values == 'id' %}
+                                <td>
+                                    <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
+                                </td>
+                            {% elif values == 'image' %}
+                                <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
+
+                            {% else %}
+                                <td>{{ answer[values] }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        {% if accept_answer %}
+                            <td>
+                                <button id="accept" onclick="accept()">Accept</button>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <button><a href="/answer/{{ answer['id'] }}/delete">DELETE</a></button>
+                        </td>
+                        <td>
+                            <button><a href="/answer/{{ answer['id'] }}/vote-down/{{ answer['question_id'] }}">DOWN</a>
+                            </button>
+                        </td>
+                        <td>
+                            <button><a href="/answer/{{ answer['id'] }}/vote-up/{{ answer['question_id'] }}">UP</a>
+                            </button>
+                        </td>
+                        <td>
+                            <button><a href="/update-answer/{{ answer['id'] }}">Edit</a></button>
+                        </td>
+                        <td>
+                            <button><a href="/answer/{{ answer['id'] }}/new-comment">NEW COMMENT</a></button>
+                        </td>
+                    </tr>
+                {% endfor %}
 
             </tr>
-        {% endfor %}
+        </table>
 
-    </tr>
-    </table>
+        <form action="/list" method="get">
+            <select name="ordering" id="ordering">
+                <option value="">--Please choose an option--</option>
+                <option value="id">ID</option>
+                <option value="submission_time">Submission Time</option>
+                <option value="view_number">View Number</option>
+                <option value="submission_time">Submission Time</option>
+                <option value="vote_number">Vote Number</option>
+                <option value="title">Title</option>
+                <option value="message">Message</option>
+            </select>
+            <input type="submit" value="Order">
+        </form>
+        <h2>Comments</h2>
+        {% if comments != [] %}
+
+
+            <table style="text-align: center">
+                <tr>
+                    {% for key in comments[0].keys() %}
+                        <td>{{ key }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for comment in comments %}
+                        <tr>
+                            {% for values in comment %}
+                                <td>{{ comment[values] }}</td>
+                            {% endfor %}
+                            <td>
+                                <button><a href="/comments/{{ comment['id'] }}/delete">Delete</a></button>
+                            </td>
+                            <td>
+                                <button>Edit</button>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+
+                </tr>
+            </table>
         {% else %}
-        <h1>Nincs comment Tess!</h1>
-        <button><a href="/">Zsa főoldal</a></button>
-    {% endif %}
+            <h1>Nincs comment Tess!</h1>
+            <button><a href="/">Zsa főoldal</a></button>
+            <script src="{{ url_for('static', filename='js/main.js' ) }}"></script>
+        {% endif %}
     {% endif %}
 {% endblock %}
