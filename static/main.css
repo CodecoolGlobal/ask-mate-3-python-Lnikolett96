@@ -18,8 +18,7 @@ form > button {
 .neon_yellow {
         animation: neontextAnim2 2s alternate-reverse infinite;
         color: #fffe1f;  /* red színnel jobban látszik a nevünk */
-        font-family: "Britannic Bold";
-        font-size: 45px;
+        font-size: 25px;
     }
     @keyframes neontextAnim2 {
     from {
@@ -58,18 +57,54 @@ form > button {
 }
 .page-title {
     text-align: center;
-    padding: 20px 0px 20px 0px;
+    padding: 20px 0 20px 0;
     margin: 20px 400px 40px 400px;
 }
+.nav-bar {
+    background-image: url("./images/navbar.png");
+    text-align: left;
+    position: absolute;
+    left: 20px;
+}
+
+.nav-bar ul{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+}
+.nav-bar li {
+    float: left;
+    list-style: none;
+    align-content: space-between;
+    display: inline-block;
+}
+.nav-bar a{
+    display: block;
+    padding: 10px 10px;
+    text-align: center;
+    color: white;
+}
+.nav-bar a:hover{
+    background-color: #67e5ff;
+    opacity: 100%;
+}
+
+
+
 .main-table {
     border: 2px solid;
-    margin: 20px 0 20px 0;
-    width: 100%;
+    margin: 20px 50px 20px 150px;
+    width: 80%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
 }
 .main-table td {
     border-bottom: 2px solid #fff;
+    height: 40px;
 }
-
 
 #aquestion {
   position: relative;
@@ -94,13 +129,12 @@ a {
 }
 
 a:link {
-    color: black;
+    color: red;
     font-weight: bold;
     font-size: 14px;
 }
-a:visited{
+.main-table a:visited{
     font-weight: bold;
-    color: black;
     font-size: 14px;
 }
 #aquestion:hover::before {
@@ -154,7 +188,6 @@ a:visited{
 }
 .neon_box {
         animation: neonAnim 2s alternate-reverse infinite;
-        color: #f40aff;
     }
     @keyframes neonAnim {
     from {
@@ -206,9 +239,26 @@ a:visited{
       }
 }
     .form-search {
-        margin: 0px 450px 70px 450px;
+        margin: 0px 500px 70px 550px;
     }
     .search-h1 {
         font-size: 25px;
         text-align: center;
+        margin: 0 90px 0 0;
+    }
+    .search-input {
+        padding: 5px 5px 5px 5px;
+        width: 300px;
+    }
+    .btw-2 {
+        border-radius: 10px;
+        width: 80px;
+        background-color: black;
+        color: white;
+        box-shadow: white 2px 1px 1px 1px;
+    }
+    .user-li {
+        list-style: none;
+        text-align: center;
+
     }

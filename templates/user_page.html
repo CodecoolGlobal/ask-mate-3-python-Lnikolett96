@@ -7,41 +7,38 @@
 
 {% block content %}
     <div>
-        <ul>
-            <li>
+        <ul class="neon_yellow">
+            <li class="user-li">
                 User Id: {{ session['id'] }}
             </li>
-            <li>
+            <li class="user-li">
                 User Name: {{ session['username'] }}
             </li>
-            <li>
+            <li class="user-li" >
                 Registration Date: {{ session['reg_date'] }}
             </li>
-            <li>
+            <li  class="user-li">
                 Number of asked questions: {{ asked_questions }}
             </li>
-            <li>
+            <li  class="user-li">
                 Number of answers: {{ number_of_answers }}
             </li>
-            <li>
+            <li  class="user-li">
                 Number of comments: {{ number_of_comments }}
             </li>
-            <li>
+            <li  class="user-li">
                 Reputation: {{ reputation }}
             </li>
         </ul>
 
-
-
     </div>
     <div>
-    <h1>Your Questions:</h1>
+    <h2>Your Questions:</h2>
     {% if questions == [] %}
         <p>There is no Questions YET</p>
 
-
     {% else %}
-    <table>
+    <table class="main-table neon_box3">
          <tr>
         {% for key in questions[0].keys() %}
             <td>{{ key }}</td>
@@ -71,7 +68,7 @@
     {% if answers == [] %}
         <p>There is no Answers YET</p>
     {% else %}
-    <table style="text-align: center">
+    <table class=" main-table neon_box2">
         <tr>
             {% for key in answers[0].keys() %}
                 <td>{{ key }}</td>
@@ -105,12 +102,12 @@
     </div>
 
     <div>
-    <h1>Your Comments:</h1>
+    <h2>Your Comments:</h2>
     {% if comments == [] %}
         <p>There is no Comments YET</p>
 
     {% else %}
-    <table style="text-align: center">
+    <table class="main-table neon_box">
     <tr >
         {% for key in comments[0].keys() %}
             <td>{{ key }}</td>
@@ -125,11 +122,10 @@
 
             </tr>
         {% endfor %}
-
     </tr>
     </table>
     {% endif %}
     </div>
-
+<button class="hero-btw neon_box"><a href="/list">Back to Main Page</a></button>
 
 {% endblock %}

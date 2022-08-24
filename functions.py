@@ -15,7 +15,7 @@ def add_question(cursor, title, message, image, user_id) -> list:
     INSERT INTO question(title, message, image,user_id)
     VALUES (%(title)s, %(message)s, %(image)s, %(user_id)s) 
     """
-    cursor.execute(query, {'title': title, 'message': message, 'image': image, 'user_id':user_id})
+    cursor.execute(query, {'title': title, 'message': message, 'image': image, 'user_id': user_id})
 
 
 @database_common.connection_handler

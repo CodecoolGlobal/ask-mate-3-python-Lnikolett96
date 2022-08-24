@@ -3,27 +3,24 @@
     404 Not Found
 {% endblock %}
 {% block content %}
-    <p>You are logged in as {{ session['username'] }}</p>
-    <a href="/registration"><button>Sign Up</button></a>
-    <button><a href="{{ url_for('login') }}">Login</a></button>
 
     {% if logged %}
-        <button><a href="{{ url_for('get_all_users') }}"> Users </a></button>
+        <p>You are logged in as {{ session['username'] }}</p>
     {% endif %}
 
     <form class="form-search" action="/search" method="post">
         <h3 class="neon_yellow search-h1">Search</h3>
-        <input class="neon_box" type="text" name="search">
-        <button type="submit">Search</button>
+        <input class="neon_box search-input" type="text" placeholder=" Search" name="search">
+        <button class="neon_box btw-2" type="submit">Search</button>
     </form>
-    <table style="text-align: center">
-    <table class="main-table neon_box3">
 
+    <table class="main-table neon_box3">
     <tr >
+    {% if questions != [] %}
         {% for key in questions[0].keys() %}
             <td>{{ key }}</td>
         {% endfor %}
-    </tr>
+        </tr>
         {% for question in questions %}
           <tr>
             {% for values in question %}
@@ -51,7 +48,9 @@
             </tr>
           </tr>
         {% endfor %}
-
+    {% else %}
+        <h1 class="no-question">There is no question, make first one!</h1>
+    {% endif %}
     </table>
 
     <form action="/list" method="get">
@@ -71,6 +70,5 @@
         <br> <br>
     {% if logged %}
         <td><button class="neon_box hero-btw"> <a href="/add-question">Add Question</a> </button> </td>
-        <td><button class="neon_box hero-btw"> <a href="/user/{{ session['id'] }}">User Page</a> </button> </td>
     {% endif %}
 {% endblock %}

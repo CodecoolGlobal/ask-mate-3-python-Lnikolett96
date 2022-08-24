@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <title>{% block page_title %}CodeCool AskMate2{% endblock %}</title>
     <link rel="stylesheet" href="/static/main.css">
-    <script src="https://kit.fontawesome.com/b25b43231c.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="nav-div">
+    <nav class="nav-bar neon_blue neon_box2">
+        <ul>
+        {% if not logged %}
+            <li><a href="/registration">Sign Up</a></li>
+            <li> <a href="{{ url_for('login') }}">Login</a> </li>
+        {% endif %}
+        {% if logged %}
+            <li><a href="/user/{{ session['id'] }}"> Profile </a></li>
+            <li> <a href="{{ url_for('get_all_users') }}"> Users </a> </li>
+        {% endif %}
+        </ul>
+    </nav>
+</div>
 <h1 class="page-title neon_box">{{ self.page_title() }}</h1>
 {% block content %}
 
