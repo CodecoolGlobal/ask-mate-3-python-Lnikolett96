@@ -128,6 +128,25 @@ def get_user_id_for_this_question(cursor, id):
     cursor.execute(query, {'id': id})
     return cursor.fetchall()
 
+@database_common.connection_handler
+def check_if_accepted(cursor, id) -> list:
+    query = """
+    SELECT answer.accepted 
+    FROM question
+    INNER JOIN answer ON question.id = answer.question_id
+    WHERE question_id = %(id)s
+    """
+    cursor.execute(query, {'id': id})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def accepting_answer(cursor, id) -> list:
+    query = """
+    UPDATE answer 
+    SET accepted = TRUE
+    WHERE id = %(id)s
+    """
+    cursor.execute(query, {'id': id})
 
 if __name__ == "__main__":
     app.run(
