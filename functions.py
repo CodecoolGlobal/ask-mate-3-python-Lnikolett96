@@ -120,6 +120,15 @@ def check_exist_user_by_username(cursor, username) -> list:
     return cursor.fetchone()
 
 
+@database_common.connection_handler
+def get_user_id_for_this_question(cursor, id):
+    query = """
+    SELECT user_id FROM question where id = %(id)s
+    """
+    cursor.execute(query, {'id': id})
+    return cursor.fetchall()
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

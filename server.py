@@ -110,10 +110,17 @@ def display_question_and_answer(question_id):
     answers = mijenkcsihadjale.link_with_answer(question_id)
     comments = mijenkcsihadjale.display_comments(question_id)
     tag = mijenkcsihadjale.question_tag(question_id)
-    print(tag)
-
-    return render_template('question_with_answer.html', answers=answers, comments=comments, tag=tag)
-
+    user_for_this_question = functions.get_user_id_for_this_question(question_id)
+    user_id = 0
+    for row in user_for_this_question:
+        user_id = row['user_id']
+    if "loggedin" in session:
+        if session["id"] == user_id:
+            session["accept_value"] = True
+            return render_template('question_with_answer.html', answers=answers, comments=comments,
+                           tag=tag, accept_answer=session["accept_value"])
+    return render_template('question_with_answer.html', answers=answers, comments=comments,
+                           tag=tag)
 
 @app.route('/answer/<answer_id>/', methods=['GET', 'POST'])
 def dislay_answer_comments(answer_id):
