@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
+
+import bonus_questions
 import functions
 import mijenkcsihadjale
 import os
@@ -286,7 +288,9 @@ def user_page(user_id):
                                number_of_comments=num_of_comments,
                                reputation = reputation)
 
-
+@app.route('/bonus-questions')
+def bonus_question():
+    return render_template('bonus_questions.html', questions = bonus_questions.SAMPLE_QUESTIONS)
 
 
 if __name__ == "__main__":
