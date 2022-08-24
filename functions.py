@@ -140,13 +140,15 @@ def check_if_accepted(cursor, id) -> list:
     return cursor.fetchall()
 
 @database_common.connection_handler
-def accepting_answer(cursor, id) -> list:
+def accepting_answer(cursor, id) -> dict:
     query = """
     UPDATE answer 
     SET accepted = TRUE
     WHERE id = %(id)s
+    RETURNING question_id
     """
     cursor.execute(query, {'id': id})
+    return cursor.fetchone()
 
 if __name__ == "__main__":
     app.run(

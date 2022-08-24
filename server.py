@@ -107,8 +107,8 @@ def delete_page(question_id):
 
 @app.route('/add_accept/<answer_id>', methods=['GET', 'POST'])
 def add_accept(answer_id):
-    functions.accepting_answer(answer_id)
-    return redirect(url_for('hello'))
+    question_id = functions.accepting_answer(answer_id)['question_id']
+    return redirect(url_for('display_question_and_answer', question_id=question_id))
 
 
 @app.route('/question/<question_id>')
@@ -199,6 +199,7 @@ def add_new_answer(question_id):
             message = request.form.get('message')
             image = request.form.get('image')
             user_id = session['id']
+            print(user_id)
             functions.add_answer(question_id, message, image, user_id)
             return redirect('/')
     return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question, logged=session['loggedin'])
@@ -264,6 +265,7 @@ def login():
 
         account = functions.check_exist_user_by_username(username)
         if account:
+            print(account)
             password_rs = account['user_password']
             if verify_password(password, password_rs):
                 session['loggedin'] = True
