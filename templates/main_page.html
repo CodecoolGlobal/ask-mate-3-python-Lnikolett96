@@ -15,7 +15,7 @@
     </form>
 
     <table class="main-table neon_box3">
-    <tr >
+    <tr>
     {% if questions != [] %}
         {% for key in questions[0].keys() %}
             <td>{{ key }}</td>
@@ -29,7 +29,7 @@
                         <a id="question_id" href="/question/{{ question[values] }}">{{ question[values] }}</a>
                     </td>
                 {% elif values == 'image' %}
-                    <td><img style="height: 70px" src="{{ question[values]}}" alt="here is a pics"></td>
+                    <td>  <img height="120px" src="{{ question[values]}}" > </td>
                 {% else %}
                     <td>{{ question[values] }}</td>
                 {% endif %}

@@ -28,7 +28,6 @@
             </tr>
 
         <!-- Table datas -->
-            <tr>
                 {% for answer in answers %}
                     <tr>
                         {% for key in answer %}
@@ -37,7 +36,7 @@
                                     <a href="/answer/{{ answer[key] }}">{{ answer[key] }}</a>
                                 </td>
                             {% elif key == 'image' %}
-                                <td><img style="height: 70px" src="{{ answer[key]}}" alt="here is a pics"></td>
+                                <td> <img height="70px" src="{{ answer[key]}}"></td>
                             {% elif key == 'accepted' %}
                                 {% if answer[key] %}
                                     <td>

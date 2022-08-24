@@ -27,17 +27,19 @@
 
 <h3> What is your Answer?</h3>
 {% if add %}
-    <textarea itemtype="text" name="message" required cols="20" rows="10"></textarea>
+    <textarea  name="message" required cols="20" rows="10"></textarea>
 {% else %}
     {% for item in answer %}
-        <textarea itemtype="text" name="message" required cols="20" rows="10" value="{{ item.message }}"></textarea>
+        <textarea  name="message" required cols="20" rows="10" value="{{ item.message }}"></textarea>
     {% endfor %}
 {% endif %}
 <h3>Upload photo</h3>
-<input type="file" name="image" accept="imagitge/*">
+<input type="file" name="image">
 {% if add %}
     <button type="submit">Send Answer</button>
 {% else %}
     <button type="submit">Update Answer</button>
 {% endif %}
+</form>
+
 {% endblock %}

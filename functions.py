@@ -3,9 +3,7 @@ import database_common
 from psycopg2.extras import RealDictCursor
 from psycopg2 import sql
 
-UPLOAD_FOLDER = "./static/images/"
-
-app = Flask(__name__)
+UPLOAD_FOLDER = './static/images/'
 
 
 @database_common.connection_handler
@@ -30,11 +28,13 @@ def add_answer(cursor, question_id, message, image, user_id) -> list:
 
 def save_image(file_name_in_form):
     uploaded_file = request.files[file_name_in_form]
-    img_source = ""
     if uploaded_file.filename != '':
         uploaded_file.save(UPLOAD_FOLDER + uploaded_file.filename)
-        img_source = UPLOAD_FOLDER + uploaded_file.filename
-    return img_source
+        upload_fold ="/static/images/"
+        image_source = upload_fold + uploaded_file.filename
+        return image_source
+    else:
+        return None
 
 
 @database_common.connection_handler

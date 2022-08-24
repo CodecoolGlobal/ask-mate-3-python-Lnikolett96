@@ -111,9 +111,8 @@ def add_accept(answer_id):
     return redirect(url_for('display_question_and_answer', question_id=question_id))
 
 
-@app.route('/question/<question_id>')
+@app.route('/question/<question_id>', methods=['GET'])
 def display_question_and_answer(question_id):
-
     answers = mijenkcsihadjale.link_with_answer(question_id)
     comments = mijenkcsihadjale.display_comments(question_id)
     tag = mijenkcsihadjale.question_tag(question_id)
@@ -126,7 +125,7 @@ def display_question_and_answer(question_id):
             session["accept_value"] = True
 
             return render_template('question_with_answer.html', answers=answers, comments=comments,
-                           tag=tag, accept_answer=session["accept_value"])
+                           tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
     return render_template('question_with_answer.html', answers=answers, comments=comments,
                            tag=tag)
 
@@ -194,7 +193,6 @@ def add_new_answer(question_id):
             message = request.form.get('message')
             image = request.form.get('image')
             user_id = session['id']
-            print(user_id)
             functions.add_answer(question_id, message, image, user_id)
             return redirect('/')
     return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question, logged=session['loggedin'])
