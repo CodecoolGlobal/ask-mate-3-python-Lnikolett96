@@ -32,13 +32,19 @@ def del_question(cursor, id):
     cursor.execute(query, {'id':id})
 
 @database_common.connection_handler
-def vote_up(cursor, id):
+def vote_up(cursor, id, user_id):
     query = """
     UPDATE question
     SET vote_number = vote_number + 1
     WHERE id = %(id)s
     """
+    query1 = """
+        UPDATE users
+        SET reputation = reputation + 5
+        WHERE id = %(user_id)s
+        """
     cursor.execute(query, {'id':id})
+    cursor.execute(query1, {'user_id': user_id})
 
 @database_common.connection_handler
 def del_answer(cursor, id):
@@ -49,31 +55,49 @@ def del_answer(cursor, id):
     cursor.execute(query, {'id': id})
 
 @database_common.connection_handler
-def vote_down(cursor, id):
+def vote_down(cursor, id, user_id):
     query = """
     UPDATE question
     SET vote_number = vote_number - 1
     WHERE id = %(id)s
     """
+    query1 = """
+            UPDATE users
+            SET reputation = reputation - 2
+            WHERE id = %(user_id)s
+            """
+    cursor.execute(query1, {'user_id': user_id})
     cursor.execute(query, {'id':id})
 
 @database_common.connection_handler
-def answer_vote_down(cursor, id):
+def answer_vote_down(cursor, id, user_id):
     query = """
     UPDATE answer
     SET vote_number = vote_number - 1
     WHERE id = %(id)s
     """
+    query1 = """
+                UPDATE users
+                SET reputation = reputation - 2
+                WHERE id = %(user_id)s
+                """
+    cursor.execute(query1, {'user_id': user_id})
     cursor.execute(query, {'id':id})
 
 @database_common.connection_handler
-def answer_vote_up(cursor, id):
+def answer_vote_up(cursor, id, user_id):
     query = """
     UPDATE answer
     SET vote_number = vote_number + 1
     WHERE id = %(id)s
     """
+    query1 = """
+            UPDATE users
+            SET reputation = reputation + 10
+            WHERE id = %(user_id)s
+            """
     cursor.execute(query, {'id':id})
+    cursor.execute(query1, {'user_id': user_id})
 
 @database_common.connection_handler
 def add_comment_to_answer(cursor, answer_id, new_message, user_id):
@@ -116,7 +140,7 @@ def question_tag(cursor, question_id):
 
 @database_common.connection_handler
 def get_new_tag_id(cursor, tag):
-    cursor.execute(sql.SQL("SELECT * FROM tag WHERE name=%s" % (tag)))
+    cursor.execute("SELECT * FROM tag WHERE name=%(tag)s", {'tag':tag})
     return cursor.fetchall()
 
 @database_common.connection_handler
@@ -155,13 +179,24 @@ def add_tag(cursor, question_id, name):
             cursor.execute(
                 sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
         else:
-            cursor.execute(sql.SQL("INSERT INTO tag(name) VALUES (%s)" % (name)))
+            cursor.execute("INSERT INTO tag(name) VALUES (%(name)s)", {'name':name})
             cursor.execute(
                 sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
 
+@database_common.connection_handler
+def get_reputation(cursor,user_id):
+    cursor.execute("SELECT reputation FROM users where id = %(user_id)s", {'user_id': user_id})
+    return cursor.fetchone()
 
+@database_common.connection_handler
+def get_user_id(cursor,question_id):
+    cursor.execute("SELECT user_id FROM question where id = %(question_id)s", {'question_id':question_id})
+    return cursor.fetchone()
 
-
+@database_common.connection_handler
+def get_user_id_by_answer(cursor,answer_id):
+    cursor.execute("SELECT user_id FROM answer where id = %(answer_id)s", {'question_id':answer_id})
+    return cursor.fetchone()
 
 
 

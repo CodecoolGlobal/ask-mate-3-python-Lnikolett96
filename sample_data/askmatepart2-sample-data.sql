@@ -22,7 +22,9 @@ CREATE TABLE users (
     username varchar(30) not null ,
     user_password varchar(128) not null,
     email varchar(50) not null,
-    registration_date date NOT NULL default current_timestamp
+    registration_date date NOT NULL default current_timestamp,
+    reputation integer default 0
+
 );
 
 DROP TABLE IF EXISTS public.question;

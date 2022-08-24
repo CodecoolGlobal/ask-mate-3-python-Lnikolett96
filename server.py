@@ -135,26 +135,29 @@ def delete_answer(answer_id):
 
 @app.route("/question/<question_id>/vote-up", methods=['POST', 'GET'])
 def voteup(question_id):
-    mijenkcsihadjale.vote_up(question_id)
+    user_id = mijenkcsihadjale.get_user_id(question_id)['user_id']
+    mijenkcsihadjale.vote_up(question_id,user_id)
     return redirect('/')
 
 
 @app.route("/question/<question_id>/vote-down", methods=['POST', 'GET'])
 def votedown(question_id):
-    mijenkcsihadjale.vote_down(question_id)
+    user_id = mijenkcsihadjale.get_user_id(question_id)['user_id']
+    mijenkcsihadjale.vote_down(question_id, user_id)
     return redirect('/')
 
 
 @app.route("/answer/<answer_id>/vote-down/<question_id>", methods=['POST', 'GET'])
 def answer_vote_down(answer_id, question_id):
-    mijenkcsihadjale.answer_vote_down(answer_id)
-
+    user_id = mijenkcsihadjale.get_user_id_by_answer(answer_id)
+    mijenkcsihadjale.answer_vote_down(answer_id,user_id)
     return redirect(f"/question/{question_id}")
 
 
 @app.route("/answer/<answer_id>/vote-up/<question_id>", methods=['POST', 'GET'])
 def answer_vote_up(answer_id, question_id):
-    mijenkcsihadjale.answer_vote_up(answer_id)
+    user_id = mijenkcsihadjale.get_user_id_by_answer(answer_id)
+    mijenkcsihadjale.answer_vote_up(answer_id,user_id)
     return redirect(f"/question/{question_id}")
 
 
@@ -268,11 +271,13 @@ def user_page(user_id):
     num_of_questions = len(user_question)
     num_of_ans  = len(user_answer)
     num_of_comments = len(user_comment)
+    reputation = mijenkcsihadjale.get_reputation(session['id'])['reputation']
     return render_template('user_page.html', questions=user_question,
                                answers=user_answer, comments=user_comment,
                                asked_questions=num_of_questions,
                                number_of_answers=num_of_ans,
-                               number_of_comments=num_of_comments)
+                               number_of_comments=num_of_comments,
+                               reputation = reputation)
 
 
 
