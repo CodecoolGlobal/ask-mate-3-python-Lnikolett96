@@ -24,15 +24,15 @@
             <tr>
                 {% for answer in answers %}
                     <tr>
-                        {% for values in answer %}
-                            {% if values == 'id' %}
+                        {% for key in answer %}
+                            {% if key == 'id' %}
                                 <td>
-                                    <a href="/answer/{{ answer[values] }}">{{ answer[values] }}</a>
+                                    <a href="/answer/{{ answer[key] }}">{{ answer[key] }}</a>
                                 </td>
-                            {% elif values == 'image' %}
-                                <td><img style="height: 70px" src="{{ answer[values] }}" alt="nemtom"></td>
-                            {% elif values == 'accepted' %}
-                                {% if are_accepted %}
+                            {% elif key == 'image' %}
+                                <td><img style="height: 70px" src="{{ answer[key] }}" alt="nemtom"></td>
+                            {% elif key == 'accepted' %}
+                                {% if answer[key] %}
                                     <td>
                                         <img src="/static/images/facebook-like-16.png" alt="like">
                                     </td>
@@ -43,7 +43,7 @@
                                     </td>
                                 {% endif %}
                             {% else %}
-                                <td>{{ answer[values] }}</td>
+                                <td>{{ answer[key] }}</td>
                             {% endif %}
 
                         {% endfor %}
