@@ -71,5 +71,6 @@
         <br> <br>
     {% if logged %}
         <td><button class="neon_box hero-btw"> <a href="/add-question">Add Question</a> </button> </td>
+        <td><button class="neon_box hero-btw"> <a href="/user/{{ session['id'] }}">User Page</a> </button> </td>
     {% endif %}
 {% endblock %}

@@ -125,6 +125,12 @@ def get_all_tag(cursor):
     return cursor.fetchall()
 
 @database_common.connection_handler
+def user_page(cursor, user_id):
+    cursor.execute("SELECT * FROM answer WHERE user_id = %(user_id)s", {'user_id': user_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
 def register(cursor, user, password, email):
     cursor.execute('INSERT INTO users(username, user_password, email) VALUES (%(user)s, %(password)s, %(email)s)', {'user':user, 'password':password, 'email':email})
 

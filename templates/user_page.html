@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+
+{% block page_title %}
+    Users Page
+{% endblock %}
+
+{% block content %}
+    <div>
+        <ul>
+            <li>
+                User Id: {{ session['id'] }}
+            </li>
+            <li>
+                User Name: {{ session['loggedin'] }}
+            </li>
+            <li>
+                Registration Date: {{ registration_date }}
+            </li>
+            <li>
+                Number of asked questions: {{ asked_questions }}
+            </li>
+            <li>
+                Number of answers: {{ number_of_answers }}
+            </li>
+            <li>
+                Number of comments: {{ number_of_comments }}
+            </li>
+            <li>
+                Reputation: {{ reputation }}
+            </li>
+        </ul>
+
+
+
+    </div>
+    <div>
+
+    </div>
+
+
+{% endblock %}
