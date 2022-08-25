@@ -18,9 +18,15 @@
             <li><a href="/user/{{ session['id'] }}"> Profile </a></li>
             <li> <a href="{{ url_for('get_all_users') }}"> Users </a> </li>
             <li><a href="/bonus-questions">Bonus Questions</a></li>
-            <li><a href="{{ url_for('logout') }}" method="post">Logout</a></li>
         {% endif %}
         </ul>
+    </nav>
+    <nav class="nav-right neon_box2">
+        {% if logged %}
+            <ul>
+                <li><a href="{{ url_for('logout') }}" method="post"><img src="/images/log_out.png"></a></li>
+            </ul>
+        {% endif %}
     </nav>
 </div>
 <h1 class="page-title neon_box">{{ self.page_title() }}</h1>
