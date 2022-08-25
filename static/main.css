@@ -1,5 +1,5 @@
 html {
-    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url("/static/images/background.jpg");
     color: white;
     text-align: center;
     font-size: 18px;
@@ -103,13 +103,17 @@ form > button {
 }
 .main-table td {
     border-bottom: 2px solid #fff;
-<<<<<<< Updated upstream
-    height: 40px;
-=======
     height: 50px;
->>>>>>> Stashed changes
 }
-
+.main-table2 {
+    border: 2px solid;
+    margin: 20px 300px 20px 400px;
+    width: 50%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+}
 #aquestion {
   position: relative;
 }

@@ -179,7 +179,8 @@ def answer_vote_up(answer_id, question_id):
 def search_question():
     expression = request.form.get('search')
     founded = functions.search_question(expression)
-    return render_template('founded.html', questions=founded, expression=expression)
+    return render_template('founded.html', questions=founded, expression=expression,
+                           logged=session['loggedin'])
 
 
 
@@ -195,7 +196,8 @@ def add_new_answer(question_id):
             user_id = session['id']
             functions.add_answer(question_id, message, image, user_id)
             return redirect('/')
-    return render_template('new_answer.html', question_id=question_id, add=add, title_name=title, question=question, logged=session['loggedin'])
+    return render_template('new_answer.html', question_id=question_id, add=add, title_name=title,
+                           question=question, logged=session['loggedin'])
 
 
 
@@ -292,7 +294,8 @@ def user_page(user_id):
                                asked_questions=num_of_questions,
                                number_of_answers=num_of_ans,
                                number_of_comments=num_of_comments,
-                               reputation = reputation)
+                               reputation = reputation,
+                                logged=session['loggedin'])
 
 @app.route('/bonus-questions')
 def bonus_question():
