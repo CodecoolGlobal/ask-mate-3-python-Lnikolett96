@@ -162,14 +162,29 @@ def get_tags(cursor) -> list:
     cursor.execute(query)
     return cursor.fetchall()
 
+
 @database_common.connection_handler
 def create_tags(cursor, name) -> list:
     query = """
-    INSERT INTO tag(name)
-    VALUES (%(name)s)
+    SELECT * FROM tag WHERE name = %(name)s
     """
     cursor.execute(query, {'name': name})
+    existing_name = cursor.fetchall()
+    if len(existing_name) == 0:
+        query = """
+        INSERT INTO tag(name)
+        VALUES (%(name)s)
+        """
+        cursor.execute(query, {'name': name})
 
+
+@database_common.connection_handler
+def get_all_tags(cursor):
+    query = """
+    SELECT * FROM tag
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 if __name__ == "__main__":

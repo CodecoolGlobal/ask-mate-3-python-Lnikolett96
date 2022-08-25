@@ -6,12 +6,11 @@ import mijenkcsihadjale
 import os
 from hash_password import hash_password, verify_password
 
-
-
 app = Flask(__name__)
 app.secret_key = "secret"
 
-@app.route("/registration", methods = ['GET', 'POST'])
+
+@app.route("/registration", methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
         username = request.form.get('Username')
@@ -48,8 +47,6 @@ def hello():
     if 'loggedin' in session:
         return render_template('main_page.html', questions=questions, logged=session['loggedin'])
     return render_template('main_page.html', questions=questions)
-
-
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -99,7 +96,7 @@ def edit_answer(id_num):
     return render_template('new_answer.html', answer=answer, answer_id=id_num,
                            add=False, title_name=title_name,
                            logged=session['loggedin']
-    )
+                           )
 
 
 @app.route('/delete/<question_id>')
@@ -113,6 +110,7 @@ def delete_page(question_id):
             pass
         mijenkcsihadjale.del_question(question_id)
         return redirect('/')
+
 
 @app.route('/add_accept/<answer_id>', methods=['GET', 'POST'])
 def add_accept(answer_id):
@@ -133,15 +131,17 @@ def display_question_and_answer(question_id):
         if session["id"] == user_id:
             session["accept_value"] = True
             return render_template('question_with_answer.html', answers=answers, comments=comments,
-                           tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
+                                   tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
     return render_template('question_with_answer.html', answers=answers, comments=comments,
                            tag=tag)
+
 
 @app.route('/answer/<answer_id>/', methods=['GET', 'POST'])
 def dislay_answer_comments(answer_id):
     comments = mijenkcsihadjale.display_comments_in_answer(answer_id)
     print(comments)
     return render_template('comment_for_answer.html', comments=comments)
+
 
 @app.route('/comments/<comment_id>/delete')
 def delete_comment_from_question(comment_id):
@@ -158,7 +158,7 @@ def delete_answer(answer_id):
 @app.route("/question/<question_id>/vote-up", methods=['POST', 'GET'])
 def voteup(question_id):
     user_id = mijenkcsihadjale.get_user_id(question_id)['user_id']
-    mijenkcsihadjale.vote_up(question_id,user_id)
+    mijenkcsihadjale.vote_up(question_id, user_id)
     return redirect('/')
 
 
@@ -172,14 +172,14 @@ def votedown(question_id):
 @app.route("/answer/<answer_id>/vote-down/<question_id>", methods=['POST', 'GET'])
 def answer_vote_down(answer_id, question_id):
     user_id = mijenkcsihadjale.get_user_id_by_answer(answer_id)
-    mijenkcsihadjale.answer_vote_down(answer_id,user_id)
+    mijenkcsihadjale.answer_vote_down(answer_id, user_id)
     return redirect(f"/question/{question_id}")
 
 
 @app.route("/answer/<answer_id>/vote-up/<question_id>", methods=['POST', 'GET'])
 def answer_vote_up(answer_id, question_id):
     user_id = mijenkcsihadjale.get_user_id_by_answer(answer_id)
-    mijenkcsihadjale.answer_vote_up(answer_id,user_id)
+    mijenkcsihadjale.answer_vote_up(answer_id, user_id)
     return redirect(f"/question/{question_id}")
 
 
@@ -189,7 +189,6 @@ def search_question():
     founded = functions.search_question(expression)
     return render_template('founded.html', questions=founded, expression=expression,
                            logged=session['loggedin'])
-
 
 
 @app.route('/added-answer/<question_id>', methods=['GET', 'POST'])
@@ -208,13 +207,12 @@ def add_new_answer(question_id):
                            question=question, logged=session['loggedin'])
 
 
-
-@app.route('/answer/<answer_id>/new-comment', methods= ['GET', 'POST'])
+@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
 def add_answer_comment(answer_id):
     add = True
     if 'loggedin' in session:
         if request.method == 'GET':
-            return render_template('add_comment.html',add=add, answer_id=answer_id, logged=session['loggedin'])
+            return render_template('add_comment.html', add=add, answer_id=answer_id, logged=session['loggedin'])
         elif request.method == 'POST':
             message = request.form.get('comment')
             user_id = session['id']
@@ -223,19 +221,22 @@ def add_answer_comment(answer_id):
             mijenkcsihadjale.add_comment_to_answer(answer_id, message, user_id)
             return redirect(f"/question/{question_id[0]['question_id']}")
 
+
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_question_comment(question_id):
     add = True
     if 'loggedin' in session:
         if request.method == 'GET':
 
-            return render_template('add_comment_to_question.html', add=add, question_id=question_id, logged=session['loggedin'])
+            return render_template('add_comment_to_question.html', add=add, question_id=question_id,
+                                   logged=session['loggedin'])
 
         elif request.method == 'POST':
             message = request.form.get('comment')
             user_id = session['id']
             mijenkcsihadjale.add_comment_to_question(question_id, message, user_id)
             return redirect("/")
+
 
 @app.route('/edit/<id_num>/update-comment', methods=['GET', 'POST'])
 def update_comment(id_num):
@@ -254,7 +255,7 @@ def add_tag(question_id):
     all_tag = mijenkcsihadjale.get_all_tag()
     if 'loggedin' in session:
         if request.method == 'GET':
-            return render_template('add_tag.html', question_id = question_id, all_tag=all_tag, logged=session['loggedin'])
+            return render_template('add_tag.html', question_id=question_id, all_tag=all_tag, logged=session['loggedin'])
         elif request.method == 'POST':
             tag = request.form.get('Tags')
             mijenkcsihadjale.add_tag(question_id, tag)
@@ -290,44 +291,48 @@ def get_all_users():
     users = functions.get_users()
     return render_template('users.html', users=users)
 
-@app.route('/user/<user_id>', methods =['GET', 'POST'])
+
+@app.route('/user/<user_id>', methods=['GET', 'POST'])
 def user_page(user_id):
     user_question = mijenkcsihadjale.user_page_question(user_id)
     user_answer = mijenkcsihadjale.user_page_answer(user_id)
     user_comment = mijenkcsihadjale.user_page_comment(user_id)
     num_of_questions = len(user_question)
-    num_of_ans  = len(user_answer)
+    num_of_ans = len(user_answer)
     num_of_comments = len(user_comment)
     reputation = mijenkcsihadjale.get_reputation(session['id'])['reputation']
-    return render_template('user_page.html', questions=user_question,
-                               answers=user_answer, comments=user_comment,
-                               asked_questions=num_of_questions,
-                               number_of_answers=num_of_ans,
-                               number_of_comments=num_of_comments,
-                               reputation = reputation,
-                                logged=session['loggedin'])
+    return render_template('user_page.html',
+                           questions=user_question,
+                           answers=user_answer, comments=user_comment,
+                           asked_questions=num_of_questions,
+                           number_of_answers=num_of_ans,
+                           number_of_comments=num_of_comments,
+                           reputation=reputation,
+                           logged=session['loggedin'])
+
 
 @app.route('/bonus-questions')
 def bonus_question():
-    return render_template('bonus_questions.html', questions = bonus_questions.SAMPLE_QUESTIONS)
+    return render_template('bonus_questions.html', questions=bonus_questions.SAMPLE_QUESTIONS)
 
 
-@app.route('/tags')
+@app.route('/tags', methods=['GET'])
 def get_tags():
     tags = functions.get_tags()
+    print(tags)
     if 'loggedin' in session:
         return render_template('tags.html', tags=tags, logged=session['loggedin'])
     else:
         return render_template('tags.html', tags=tags)
 
 
-@app.route('/tags', methods=['GET', 'POST'])
+@app.route('/tags', methods=['POST'])
 def create_tags():
     if 'loggedin' in session:
         if request.method == 'POST':
             new_tag = request.form.get('new_tag')
             functions.create_tags(new_tag)
-            return redirect(url_for('create_tags'))
+            return redirect(url_for('get_tags'))
     return render_template('tags.html', logged=session['loggedin'])
 
 
