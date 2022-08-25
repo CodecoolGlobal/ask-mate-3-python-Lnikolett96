@@ -17,12 +17,8 @@
         {% if logged %}
             <li><a href="/user/{{ session['id'] }}"> Profile </a></li>
             <li> <a href="{{ url_for('get_all_users') }}"> Users </a> </li>
-<<<<<<< Updated upstream
             <li><a href="/bonus-questions">Bonus Questions</a></li>
-=======
             <li><a href="{{ url_for('logout') }}" method="post">Logout</a></li>
-
->>>>>>> Stashed changes
         {% endif %}
         </ul>
     </nav>
