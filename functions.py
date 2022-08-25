@@ -150,6 +150,19 @@ def accepting_answer(cursor, id) -> dict:
     cursor.execute(query, {'id': id})
     return cursor.fetchone()
 
+
+@database_common.connection_handler
+def get_tags(cursor) -> list:
+    query = """
+    SELECT name, COUNT(qt.question_id) AS question
+    FROM tag
+    INNER JOIN question_tag qt ON tag.id = qt.tag_id
+    GROUP BY name
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

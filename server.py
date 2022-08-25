@@ -302,6 +302,12 @@ def bonus_question():
     return render_template('bonus_questions.html', questions = bonus_questions.SAMPLE_QUESTIONS)
 
 
+@app.route('/tags')
+def get_tags():
+    tags = functions.get_tags()
+    return render_template('tags.html', tags=tags)
+
+
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',

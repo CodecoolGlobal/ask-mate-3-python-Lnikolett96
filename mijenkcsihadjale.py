@@ -166,7 +166,7 @@ def user_page_comment(cursor, user_id):
 
 @database_common.connection_handler
 def register(cursor, user, password, email):
-    cursor.execute('INSERT INTO users(username, user_password, email) VALUES (%(user)s, %(password)s, %(email)s)', {'user':user, 'password':password, 'email':email})
+    cursor.execute('INSERT INTO users(username, user_password, email) VALUES (%(user)s, %(password)s, %(email)s)', {'user': user, 'password':password, 'email':email})
 
 
 @database_common.connection_handler
@@ -179,23 +179,23 @@ def add_tag(cursor, question_id, name):
             cursor.execute(
                 sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
         else:
-            cursor.execute("INSERT INTO tag(name) VALUES (%(name)s)", {'name':name})
+            cursor.execute("INSERT INTO tag(name) VALUES (%(name)s)", {'name': name})
             cursor.execute(
                 sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
 
 @database_common.connection_handler
-def get_reputation(cursor,user_id):
+def get_reputation(cursor, user_id):
     cursor.execute("SELECT reputation FROM users where id = %(user_id)s", {'user_id': user_id})
     return cursor.fetchone()
 
 @database_common.connection_handler
-def get_user_id(cursor,question_id):
-    cursor.execute("SELECT user_id FROM question where id = %(question_id)s", {'question_id':question_id})
+def get_user_id(cursor, question_id):
+    cursor.execute("SELECT user_id FROM question where id = %(question_id)s", {'question_id': question_id})
     return cursor.fetchone()
 
 @database_common.connection_handler
-def get_user_id_by_answer(cursor,answer_id):
-    cursor.execute("SELECT user_id FROM answer where id = %(answer_id)s", {'question_id':answer_id})
+def get_user_id_by_answer(cursor, answer_id):
+    cursor.execute("SELECT user_id FROM answer where id = %(answer_id)s", {'question_id': answer_id})
     return cursor.fetchone()
 
 
