@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+
+{% block page_title %}
+    Tags
+{% endblock %}
+
+{% block content %}
+
+    <table class="main-table neon_box2">
+    {% for tag in tags %}
+        <tr>
+            {% for t in tag %}
+                {% if t == 'name' %}
+                    <td>
+                        {{ tag[t] }}
+                    </td>
+                {% endif %}
+            {% if t == 'question' %}
+                <td>
+                    {{ tag[t] }}
+                </td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
