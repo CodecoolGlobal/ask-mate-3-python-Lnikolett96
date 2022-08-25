@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block page_title %}
-<h1>Add Tags</h1>
+    <h1>Add Tags</h1>
+
 {% endblock %}
 
-
-
 {% block content %}
+
     <form action="/question/{{ question_id }}/new-tag" method="post">
         <select name="Tags" id="Tags">
             {% for tag in all_tag %}
@@ -15,5 +15,32 @@
         </select>
     <button type="submit">Submit</button>
     </form>
+
+
+    <table class="main-table neon_box3">
+        <tr>
+            <td>
+                <form action="/question/{{ question_id }}/new-tag" method="post">
+                    <h2>Select tag</h2>
+                    <select name="Tags" id="Tags">
+                        {% for tag in all_tag %}
+                            <option value="{{ tag['name'] }}">{{ tag['name'] }}</option>
+                        {% endfor %}
+
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('create_tags') }}" method="post">
+                    <h2>Create tag</h2>
+                    <input type="text" name="new_tag">
+                    <button type="submit">Create</button>
+                </form>
+            </td>
+        </tr>
+
+    </table>
 {% endblock %}
+
 

@@ -321,6 +321,16 @@ def get_tags():
         return render_template('tags.html', tags=tags)
 
 
+@app.route('/tags', methods=['GET', 'POST'])
+def create_tags():
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            new_tag = request.form.get('new_tag')
+            functions.create_tags(new_tag)
+            return redirect(url_for('create_tags'))
+    return render_template('tags.html', logged=session['loggedin'])
+
+
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
