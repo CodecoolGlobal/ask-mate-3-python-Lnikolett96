@@ -7,22 +7,22 @@ function getSortedItems(items, sortField, sortDirection) {
     // === SAMPLE CODE ===
     // if you have not changed the original html uncomment the code below to have an idea of the
     // effect this function has on the table
-    //
-    let sort = items.sort()
-    console.log('ezalatt')
-    console.log(sort)
-    if (sortDirection === "asc") {
-        const firstItem = items.shift()
-        if (firstItem) {
-            items.push(firstItem)
-        }
-    } else {
-        const lastItem = items.pop()
-        if (lastItem) {
-            items.push(lastItem)
-        }
-    }
+    items.sort((item1, item2)=> {
+        if (item1[sortField] > item2[sortField]) {
+            if (sortDirection === "asc") {
+                return 1
 
+            }else {
+                return -1
+            }
+        }else {
+            if (sortDirection === "asc") {
+                return -1
+            }else {
+                return 1
+            }
+        }
+    })
     return items
 }
 
@@ -38,30 +38,28 @@ function getFilteredItems(items, filterValue) {
 
     let filteredItems = []
 
-    switch (filterValue.includes(':')){
+    switch (filterValue.includes(':')) {
         case true:
-            for (let i=0; i<items.length; i++){
-                if (filterValue[0]== "D" && items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))) {
+            for (let i = 0; i < items.length; i++) {
+                if (filterValue[0] == "D" && items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))) {
                     filteredItems.push(items[i])
-                }else if (filterValue[0] == "!" && !items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))){
+                } else if (filterValue[0] == "!" && !items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))) {
                     filteredItems.push(items[i])
                 }
             }
             break;
 
         case false:
-            for (let i=0; i<items.length; i++) {
-        if (filterValue[0] == "!" && !items[i]['Title'].includes(filterValue.slice(1,filterValue.length))){
-            filteredItems.push(items[i]);
-        }
-        else if (items[i]['Title'].includes(filterValue)){
-            filteredItems.push(items[i]);
-        }
+            for (let i = 0; i < items.length; i++) {
+                if (filterValue[0] == "!" && !items[i]['Title'].includes(filterValue.slice(1, filterValue.length))) {
+                    filteredItems.push(items[i]);
+                } else if (items[i]['Title'].includes(filterValue)) {
+                    filteredItems.push(items[i]);
+                }
 
-    }
+            }
             break;
     }
-
 
 
     return filteredItems
