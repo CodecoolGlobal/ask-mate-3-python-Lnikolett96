@@ -315,7 +315,10 @@ def bonus_question():
 @app.route('/tags')
 def get_tags():
     tags = functions.get_tags()
-    return render_template('tags.html', tags=tags, logged=session['loggedin'])
+    if 'loggedin' in session:
+        return render_template('tags.html', tags=tags, logged=session['loggedin'])
+    else:
+        return render_template('tags.html', tags=tags)
 
 
 if __name__ == "__main__":
