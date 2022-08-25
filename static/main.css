@@ -90,7 +90,35 @@ form > button {
     opacity: 100%;
 }
 
+.nav-right {
+    background-image: url("./images/navbar.png");
+    text-align: left;
+    position: absolute;
+    right: 20px;
+}
 
+.nav-right ul{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+}
+.nav-right li {
+    float: left;
+    list-style: none;
+    align-content: space-between;
+    display: inline-block;
+}
+.nav-right a{
+    display: block;
+    padding: 10px 10px;
+    text-align: center;
+    color: white;
+}
+.nav-right a:hover{
+    background-color: #67e5ff;
+    opacity: 100%;
+}
 
 .main-table {
     border: 2px solid;

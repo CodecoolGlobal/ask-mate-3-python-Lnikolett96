@@ -23,6 +23,15 @@ def registration():
         return render_template('registration.html')
 
 
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    session.pop('username', None)
+    session.pop('id', None)
+    session.pop('loggedin', None)
+    session.pop('reg_date', None)
+    flash("You have been logged out", "info")
+    return redirect(url_for('hello'))
+
 
 @app.route("/")
 def five_latest_questions():
