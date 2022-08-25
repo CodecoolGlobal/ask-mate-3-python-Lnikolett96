@@ -8,6 +8,9 @@ function getSortedItems(items, sortField, sortDirection) {
     // if you have not changed the original html uncomment the code below to have an idea of the
     // effect this function has on the table
     //
+    let sort = items.sort()
+    console.log('ezalatt')
+    console.log(sort)
     if (sortDirection === "asc") {
         const firstItem = items.shift()
         if (firstItem) {

@@ -12,10 +12,12 @@
         {% if not logged %}
             <li><a href="/registration">Sign Up</a></li>
             <li> <a href="{{ url_for('login') }}">Login</a> </li>
+            <li><a href="/bonus-questions">Bonus Questions</a></li>
         {% endif %}
         {% if logged %}
             <li><a href="/user/{{ session['id'] }}"> Profile </a></li>
             <li> <a href="{{ url_for('get_all_users') }}"> Users </a> </li>
+            <li><a href="/bonus-questions">Bonus Questions</a></li>
         {% endif %}
         </ul>
     </nav>
