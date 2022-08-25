@@ -258,20 +258,20 @@ a:link {
 }
     .neon_box3 {
         animation: neonAnim3 2s alternate-reverse infinite;
-        color: #ff030d;
+        color: #9cff35;
     }
     @keyframes neonAnim3 {
     from {
         box-shadow:
-          0 0 10px rgba(255, 3, 13, .7),
-          0 0 40px rgba(255, 3, 13, .7),
-          0 0 100px rgba(255, 3, 13, .7);
+          0 0 10px rgba(62, 255, 3, 0.7),
+          0 0 40px rgba(32, 255, 3, 0.7),
+          0 0 100px rgba(38, 255, 0, 0.7);
       }
  to {
         box-shadow:
-          0 0 10px rgba(255, 3, 13, .7),
-          0 0 40px rgba(255, 3, 13, .7),
-          0 0 100px rgba(255, 3, 13, .7);
+          0 0 10px rgba(16, 251, 3, 0.7),
+          0 0 40px rgba(18, 145, 48, 0.7),
+          0 0 100px rgba(102, 255, 173, 0.7);
       }
 }
     .form-search {
@@ -296,5 +296,8 @@ a:link {
     .user-li {
         list-style: none;
         text-align: center;
-
+    }
+    .scaled-img:hover {
+        transition: 1s;
+        transform: scale(1.2);
     }

@@ -13,7 +13,7 @@
         <input class="neon_box search-input" type="text" placeholder=" Search" name="search">
         <button class="neon_box btw-2" type="submit">Search</button>
     </form>
-    <button class="hero-btw"><a href="{{ url_for('get_tags') }}">Tags</a></button>
+    <a class="scaled-img" href="{{ url_for('get_tags') }}"><img class="scaled-img" width="200px" src="/static/images/tag.png" title="tags" alt="Tags"> </a>
     <table class="main-table neon_box3">
     <tr>
     {% if questions != [] %}

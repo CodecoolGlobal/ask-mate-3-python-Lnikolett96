@@ -43,9 +43,11 @@
                                         <img src="/static/images/facebook-like-17%20(1).png" title="accepted">
                                     </td>
                                 {% else %}
+                                    {% if accept_answer %}
                                     <td>
                                         <a href="/add_accept/{{ answer['id'] }}"><img src="/static/images/facebook-like-16.png" title="accepted"></a>
                                     </td>
+                                    {% endif %}
                                 {% endif %}
                             {% else %}
                                 <td>{{ answer[key] }}</td>

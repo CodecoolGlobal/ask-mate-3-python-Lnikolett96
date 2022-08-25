@@ -138,10 +138,10 @@ def question_tag(cursor, question_id):
     cursor.execute(sql.SQL("select name from tag inner join question_tag on tag.id = question_tag.tag_id where question_id=%s" % question_id))
     return cursor.fetchall()
 
-@database_common.connection_handler
-def get_new_tag_id(cursor, tag):
-    cursor.execute("SELECT * FROM tag WHERE name=%(tag)s", {'tag':tag})
-    return cursor.fetchall()
+#@database_common.connection_handler
+#def get_new_tag_id(cursor, tag):
+#   cursor.execute("SELECT * FROM tag WHERE name=%(tag)s", {'tag':tag})
+#   return cursor.fetchall()
 
 @database_common.connection_handler
 def get_all_tag(cursor):
@@ -170,18 +170,23 @@ def register(cursor, user, password, email):
 
 
 @database_common.connection_handler
-def add_tag(cursor, question_id, name):
-    minden_tag = get_all_tag()
-    tagid = get_new_tag_id(name)
-    tag_id = tagid[0]['id']
-    for element in minden_tag:
-        if element['name'] == name:
-            cursor.execute(
-                sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
-        else:
-            cursor.execute("INSERT INTO tag(name) VALUES (%(name)s)", {'name': name})
-            cursor.execute(
-                sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
+def generate_tag_id(cursor, name) -> list:
+    query = """
+    SELECT id FROM tag WHERE name = %(name)s
+    """
+    cursor.execute(query, {'name': name})
+    return cursor.fetchall()
+
+
+
+
+@database_common.connection_handler
+def add_tag(cursor, question_id, name) -> list:
+    tag_id = generate_tag_id(name)
+    for element in tag_id:
+        tag_id = element['id']
+    cursor.execute(sql.SQL("INSERT INTO question_tag(question_id, tag_id) VALUES (%s, %s)" % (question_id, tag_id)))
+
 
 @database_common.connection_handler
 def get_reputation(cursor, user_id):

@@ -132,7 +132,6 @@ def display_question_and_answer(question_id):
     if "loggedin" in session:
         if session["id"] == user_id:
             session["accept_value"] = True
-
             return render_template('question_with_answer.html', answers=answers, comments=comments,
                            tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
     return render_template('question_with_answer.html', answers=answers, comments=comments,
@@ -252,13 +251,15 @@ def update_comment(id_num):
 
 @app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
 def add_tag(question_id):
+    all_tag = mijenkcsihadjale.get_all_tag()
     if 'loggedin' in session:
         if request.method == 'GET':
-            all_tag = mijenkcsihadjale.get_all_tag()
             return render_template('add_tag.html', question_id = question_id, all_tag=all_tag, logged=session['loggedin'])
         elif request.method == 'POST':
             tag = request.form.get('Tags')
             mijenkcsihadjale.add_tag(question_id, tag)
+            return redirect(url_for('hello'))
+    return render_template('add_tag.html', question_id=question_id, all_tag=all_tag, logged=session['loggedin'])
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -314,7 +315,7 @@ def bonus_question():
 @app.route('/tags')
 def get_tags():
     tags = functions.get_tags()
-    return render_template('tags.html', tags=tags)
+    return render_template('tags.html', tags=tags, logged=session['loggedin'])
 
 
 if __name__ == "__main__":
