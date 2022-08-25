@@ -35,15 +35,31 @@ function getFilteredItems(items, filterValue) {
 
     let filteredItems = []
 
-    for (let i=0; i<items.length; i++) {
-        if (filterValue[0] == "!"){
+    switch (filterValue.includes(':')){
+        case true:
+            for (let i=0; i<items.length; i++){
+                if (filterValue[0]== "D" && items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))) {
+                    filteredItems.push(items[i])
+                }else if (filterValue[0] == "!" && !items[i]['Description'].includes(filterValue.slice(filterValue.indexOf(':') + 1))){
+                    filteredItems.push(items[i])
+                }
+            }
+            break;
 
+        case false:
+            for (let i=0; i<items.length; i++) {
+        if (filterValue[0] == "!" && !items[i]['Title'].includes(filterValue.slice(1,filterValue.length))){
+            filteredItems.push(items[i]);
         }
-        if (items[i]['Title'].includes(filterValue)){
+        else if (items[i]['Title'].includes(filterValue)){
             filteredItems.push(items[i]);
         }
 
     }
+            break;
+    }
+
+
 
     return filteredItems
 }
