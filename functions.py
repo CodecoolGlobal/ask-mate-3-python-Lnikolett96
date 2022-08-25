@@ -185,12 +185,3 @@ def get_all_tags(cursor):
     """
     cursor.execute(query)
     return cursor.fetchall()
-
-
-if __name__ == "__main__":
-    app.run(
-        debug=True,
-        port=5000
-    )
-
-
