@@ -133,7 +133,7 @@ def display_question_and_answer(question_id):
         if session["id"] == user_id:
             session["accept_value"] = True
             return render_template('question_with_answer.html', answers=answers, comments=comments,
-                           tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
+                                   tag=tag, accept_answer=session["accept_value"], logged=session['loggedin'])
     return render_template('question_with_answer.html', answers=answers, comments=comments,
                            tag=tag)
 
@@ -141,7 +141,7 @@ def display_question_and_answer(question_id):
 def dislay_answer_comments(answer_id):
     comments = mijenkcsihadjale.display_comments_in_answer(answer_id)
     print(comments)
-    return render_template('comment_for_answer.html', comments=comments, logged=session['loggedin'])
+    return render_template('comment_for_answer.html', comments=comments)
 
 @app.route('/comments/<comment_id>/delete')
 def delete_comment_from_question(comment_id):
@@ -222,14 +222,16 @@ def add_answer_comment(answer_id):
             question_id = mijenkcsihadjale.get_question_id(answer_id)
             mijenkcsihadjale.add_comment_to_answer(answer_id, message, user_id)
             return redirect(f"/question/{question_id[0]['question_id']}")
-    return render_template('add_comment.html', add=add, answer_id=answer_id, logged=session['loggedin'])
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_question_comment(question_id):
     add = True
     if 'loggedin' in session:
         if request.method == 'GET':
-            return render_template('add_comment_to_question.html', add=add, question_id=question_id, logged=session['loggedin'])
+
+            return render_template('add_comment_to_question.html', add=add, question_id=question_id,
+                                   logged=session['loggedin'])
+
         elif request.method == 'POST':
             message = request.form.get('comment')
             user_id = session['id']
@@ -312,10 +314,19 @@ def bonus_question():
     return render_template('bonus_questions.html', questions = bonus_questions.SAMPLE_QUESTIONS)
 
 
-@app.route('/tags')
+@app.route('/tags', methods=['GET'])
 def get_tags():
     tags = functions.get_tags()
+<<<<<<< Updated upstream
+    if 'loggedin' in session:
+        if request.method == 'POST':
+            new_tag = request.form.get('new_tag')
+            functions.create_tags(new_tag)
+            return redirect(url_for('get_tags'))
+    return render_template('tags.html', logged=session['loggedin'])
+=======
     return render_template('tags.html', tags=tags, logged=session['loggedin'])
+>>>>>>> Stashed changes
 
 
 if __name__ == "__main__":

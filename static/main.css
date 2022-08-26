@@ -300,6 +300,7 @@ a:link {
     .scaled-img:hover {
         transition: 1s;
         transform: scale(1.2);
+<<<<<<< Updated upstream
     }
     .searc-img {
         position: absolute;
@@ -324,4 +325,6 @@ a:link {
         position: absolute;
         right: 600px;
         top: 225px;
+=======
+>>>>>>> Stashed changes
     }
