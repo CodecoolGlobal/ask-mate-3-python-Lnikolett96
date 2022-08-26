@@ -13,11 +13,13 @@
             <li><a href="/registration">Sign Up</a></li>
             <li> <a href="{{ url_for('login') }}">Login</a> </li>
             <li><a href="/bonus-questions">Bonus Questions</a></li>
+            <li><a href={{ url_for('hello') }}>Home</a></li>
         {% endif %}
         {% if logged %}
             <li><a href="/user/{{ session['id'] }}"> Profile </a></li>
             <li> <a href="{{ url_for('get_all_users') }}"> Users </a> </li>
             <li><a href="/bonus-questions">Bonus Questions</a></li>
+            <li><a href={{ url_for('hello') }}>Home</a></li>
         {% endif %}
         </ul>
     </nav>
@@ -31,11 +33,6 @@
 </div>
 <h1 class="page-title neon_box">{{ self.page_title() }}</h1>
 {% block content %}
-
-
-
-
-
 {% endblock %}
 </body>
 </html>

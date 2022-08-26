@@ -12,8 +12,13 @@
         <h3 class="neon_yellow search-h1">Search</h3>
         <input class="neon_box search-input" type="text" placeholder=" Search" name="search">
         <button class="neon_box btw-2" type="submit">Search</button>
+        <img class="searc-img" src="/static/images/search.png" title="search">
+
     </form>
+
     <a class="scaled-img" href="{{ url_for('get_tags') }}"><img class="scaled-img" width="200px" src="/static/images/tag.png" title="tags" alt="Tags"> </a>
+
+
     <table class="main-table neon_box3">
     <tr>
     {% if questions != [] %}
@@ -35,13 +40,13 @@
                 {% endif %}
             {% endfor %}
            {% if logged %}
-            <td ><button><a href="/delete/{{ question['id'] }}">Delete</a></button>
-                <button><a href="/question/{{ question['id'] }}/vote-up">Up</a></button>
-                <button><a href="/question/{{ question['id'] }}/vote-down">Down</a></button>
-                <button><a href="/added-answer/{{ question['id'] }}">Add Answer</a></button>
-                <button><a href="/update-question/{{ question['id'] }}">Update Question</a></button>
-                <button><a href="/question/{{ question['id'] }}/new-comment">Add Comment</a></button>
-                <button><a href="/question/{{ question['id'] }}/new-tag">Add Tag</a></button>
+            <td ><a href="/delete/{{ question['id'] }}"> <img width="20" src="/static/images/skull.png" title="delete"> </a>
+                <a href="/question/{{ question['id'] }}/vote-up"><img width="20" src="/static/images/arrow_up.png" title="vote_up"></a>
+                <a href="/question/{{ question['id'] }}/vote-down"><img width="20" src="/static/images/arrow_down.png" title="vote_down"></a>
+                <a href="/added-answer/{{ question['id'] }}"><img width="20" src="/static/images/answer.png" title="answer"></a>
+                <a href="/update-question/{{ question['id'] }}"><img width="20" src="/static/images/edit.png" title="edit_question"></a>
+                <a href="/question/{{ question['id'] }}/new-comment"><img width="20" src="/static/images/comment.png" title="add_comment"></a>
+                <a href="/question/{{ question['id'] }}/new-tag"><img width="20" src="/static/images/add_tag.png" title="add tag"></a>
             </td>
           {% endif %}
 

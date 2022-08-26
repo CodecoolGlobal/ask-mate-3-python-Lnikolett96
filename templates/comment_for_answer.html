@@ -3,7 +3,7 @@
     Answer Comments
 {% endblock %}
 {% block content %}
-<h2>Comments</h2>
+    <h2>Comments</h2>
     {% if comments != [] %}
 
 
@@ -20,20 +20,17 @@
                     <td>{{ comment[values] }}</td>
             {% endfor %}
 
-                <td><button><a href="/comments/{{ comment['id'] }}/delete">Delete</a></button></td>
-                <td><button>DOWN</button></td>
-
-                <td><button>DELETE</button></td>
-                <td><button><a href="/edit/{{ comment['id'] }}/update-comment">Edit</a></button></td>
-
-
+                <td>
+                    <a href="/comments/{{ comment['id'] }}/delete"> <img width="20" src="/static/images/skull.png" title="delete"></a>
+                    <a href="/edit/{{ comment['id'] }}/update-comment"><img width="20" src="/static/images/edit.png" title="edit_question"></a>
+                </td>
             </tr>
         {% endfor %}
 
     </tr>
     </table>
         {% else %}
-        <h1>Nincs comment Tess!</h1>
+        <h1 class="neon_blue">Nincs comment Tess!</h1>
         <button><a href="/">Zsa főoldal</a></button>
     {% endif %}
 {% endblock %}

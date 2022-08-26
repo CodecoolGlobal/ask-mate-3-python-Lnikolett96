@@ -1,20 +1,24 @@
 <html>
     <head>
+        <title>Bonus Question</title>
         <script type="text/javascript" src="{{ url_for('static', filename='js/bonusQuestions.js') }}" defer></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/doNotModifyThisFile.js') }}" defer></script>
+        <link rel="stylesheet" href="/static/main.css">
     </head>
     <body>
-        <h1>AskMate</h1>
-        <h2>All Questions:</h2>
-        <button id="theme-button">Change Theme to Dark</button>
-        <button id="increase-font-button">Increase page font</button>
-        <button id="decrease-font-button">Decrease page font</button>
-        <input
+        <h1 class="page-title">AskMate</h1>
+        <h2 style="color: #8d78ff" >All Questions:</h2> <br> <br>
+        <div class="button-left">
+        <button class="bonus-btw neon_box" id="theme-button">Change Theme to Dark</button>
+        <button class="bonus-btw neon_box" id="increase-font-button">Increase page font</button>
+        <button class="bonus-btw neon_box" id="decrease-font-button">Decrease page font</button>
+        </div>
+        <input  class="bonus-input neon_box2"
                 data-table-body="doNotModifyThisId_QuestionsTableBody"
-                style="width: 500px" id="doNotModifyThisId_QuestionsFilter"
+                id="doNotModifyThisId_QuestionsFilter"
                 type="text"
                 placeholder="filter questions by keywords">
-        <table>
+        <table class="main-table neon_box3">
             <thead id="doNotModifyThisId_QuestionsTableHeader">
                 <tr>
                     <td>Title</td>
@@ -34,5 +38,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        <button class="hero-btw neon_box"><a href="/list">Back to Main Page</a></button>
     </body>
 </html>

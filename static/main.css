@@ -301,3 +301,27 @@ a:link {
         transition: 1s;
         transform: scale(1.2);
     }
+    .searc-img {
+        position: absolute;
+        right: 500px;
+        top: 225px;
+    }
+    .bonus-btw {
+        position: static;
+        justify-content: left;
+    }
+    .button-left {
+        text-align: left;
+        position: absolute;
+        left: 10px;
+        top: 20px;
+    }
+    .bonus-input {
+        width: 300px;
+        padding: 10px 10px 10px 10px;
+        height: 20px;
+        border-radius: 20px;
+        position: absolute;
+        right: 600px;
+        top: 225px;
+    }
